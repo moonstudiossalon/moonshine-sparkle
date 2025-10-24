@@ -59,28 +59,55 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Three tilted image cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl mx-auto mt-16">
-          {[
-            { img: hero1, rotation: '-rotate-2' },
-            { img: hero2, rotation: 'rotate-1' },
-            { img: hero3, rotation: '-rotate-1' }
-          ].map((item, index) => (
-            <div
-              key={index}
-              className={`${item.rotation} hover:rotate-0 transition-all duration-300 hover:scale-105 animate-fade-up`}
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <div className="relative overflow-hidden rounded-2xl shadow-medium hover:shadow-hover aspect-[3/4] bg-card">
-                <img
-                  src={item.img}
-                  alt={`Hair transformation ${index + 1}`}
-                  className="w-full h-full object-cover"
-                  loading={index === 0 ? 'eager' : 'lazy'}
-                />
+        {/* Three tilted image cards - stacked on mobile, grid on desktop */}
+        <div className="relative max-w-5xl mx-auto mt-16">
+          {/* Mobile: Stacked overlapping style */}
+          <div className="flex sm:hidden justify-center items-center relative h-[400px]">
+            {[
+              { img: hero1, rotation: '-rotate-6', zIndex: 30, translateX: '-translate-x-8', translateY: 'translate-y-8' },
+              { img: hero2, rotation: 'rotate-3', zIndex: 20, translateX: 'translate-x-0', translateY: 'translate-y-0' },
+              { img: hero3, rotation: '-rotate-3', zIndex: 10, translateX: 'translate-x-8', translateY: '-translate-y-8' }
+            ].map((item, index) => (
+              <div
+                key={index}
+                className={`absolute ${item.rotation} ${item.translateX} ${item.translateY} animate-fade-up w-[240px]`}
+                style={{ animationDelay: `${index * 100}ms`, zIndex: item.zIndex }}
+              >
+                <div className="relative overflow-hidden rounded-2xl shadow-medium aspect-[3/4] bg-card">
+                  <img
+                    src={item.img}
+                    alt={`Hair transformation ${index + 1}`}
+                    className="w-full h-full object-cover"
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          
+          {/* Desktop: Grid layout */}
+          <div className="hidden sm:grid grid-cols-3 gap-6">
+            {[
+              { img: hero1, rotation: '-rotate-2' },
+              { img: hero2, rotation: 'rotate-1' },
+              { img: hero3, rotation: '-rotate-1' }
+            ].map((item, index) => (
+              <div
+                key={index}
+                className={`${item.rotation} hover:rotate-0 transition-all duration-300 hover:scale-105 animate-fade-up`}
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="relative overflow-hidden rounded-2xl shadow-medium hover:shadow-hover aspect-[3/4] bg-card">
+                  <img
+                    src={item.img}
+                    alt={`Hair transformation ${index + 1}`}
+                    className="w-full h-full object-cover"
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
