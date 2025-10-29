@@ -13,7 +13,7 @@ const Location = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Map */}
-          <div className="rounded-2xl overflow-hidden shadow-medium h-[400px] bg-card relative group cursor-pointer">
+          <div className="rounded-2xl overflow-hidden shadow-medium h-[500px] bg-card relative group cursor-pointer">
             <iframe src={mapUrl} width="100%" height="100%" style={{
             border: 0
           }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Moon Studios Location Map" />

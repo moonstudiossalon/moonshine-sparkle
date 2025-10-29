@@ -1,6 +1,7 @@
 import useEmblaCarousel from 'embla-carousel-react';
 import AutoScroll from 'embla-carousel-auto-scroll';
 import { Star } from 'lucide-react';
+import { url } from 'inspector';
 
 const PreferredBy = () => {
   const [emblaRef] = useEmblaCarousel(
@@ -9,10 +10,14 @@ const PreferredBy = () => {
   );
 
   const clients = [
-    { name: 'Sanchari Sengupta', title: 'Singer', image: 'https://placehold.co/200x200/e0e0e0/666?text=SS' },
-    { name: 'Lakshya Raj Anand', title: 'Film Producer', image: 'https://placehold.co/200x200/e0e0e0/666?text=LA' },
-    { name: 'Majeet Kaur', title: 'MTX Winner', image: 'https://placehold.co/200x200/e0e0e0/666?text=MK' },
-    { name: 'Nikhil Singh', title: 'Artist', image: 'https://placehold.co/200x200/e0e0e0/666?text=NS' },
+    { name: 'Sanchari Sengupta', title: 'Playback Singer', image: 'src/assets/images/sanchari_sengupta.png', url: 'https://share.google/t9QsmnTQmPm85OfXo' },
+    { name: 'Lakshya Raj Anand', title: 'Film producer', image: 'src/assets/images/laxsh_raj.png', url: 'https://share.google/4eyKno0nbS8Yx5tAN' },
+    { name: 'Sneha Agarwal', title: 'DJ', image: 'src/assets/images/dj_sneha.png', url: 'https://www.instagram.com/djsnea'},
+    { name: 'Parleen Singh', title: 'Mindset Coach/ Author', image: 'src/assets/images/parleen.png', url: 'https://www.instagram.com/singhparleen'},
+    { name: 'Manjeet kaur', title: 'MISS INDIA/MISS DUBAI', image: 'src/assets/images/dubai.png', url: 'https://www.instagram.com/yes.manjeetkaur'},
+    { name: 'Nikhil Singh', title: 'Winner Battleground', image: 'src/assets/images/nikhik.png', url: 'https://www.instagram.com/fitwithnikhil09'},
+    { name: 'Nikhil Singh', title: 'Winner Battleground', image: 'src/assets/images/nikhik.png', url: 'https://www.instagram.com/fitwithnikhil09'},
+
   ];
 
   return (
@@ -37,19 +42,21 @@ const PreferredBy = () => {
                 className="flex-[0_0_300px] min-w-0"
               >
                 <div className=" rounded-2xl p-8 duration-300 text-center h-full flex flex-col items-center justify-center">
-                  <div className="w-24 h-24 rounded-full overflow-hidden mb-4 mx-auto border-4 border-primary/20">
-                    <img 
-                      src={client.image} 
-                      alt={client.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <h3 className="text-xl font-playfair font-semibold text-foreground mb-2">
-                    {client.name}
-                  </h3>
-                  <p className="text-muted-foreground text-sm">
-                    {client.title}
-                  </p>
+                  <a href={client.url} target="_blank" rel="noopener noreferrer">
+                    <div className="w-24 h-24 rounded-full overflow-hidden mb-4 mx-auto border-4 border-primary/20">
+                      <img
+                        src={client.image}
+                        alt={client.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <h3 className="text-xl font-playfair font-semibold text-foreground mb-2">
+                      {client.name}
+                    </h3>
+                    <p className="text-muted-foreground text-sm">
+                      {client.title}
+                    </p>
+                  </a>
                 </div>
               </div>
             ))}
