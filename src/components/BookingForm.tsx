@@ -1,8 +1,8 @@
 import { Phone } from 'lucide-react';
-import { Button } from './ui/button';
-import { Textarea } from './ui/textarea';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import { Button } from './ui/button';
+import { Textarea } from '@/components/ui/textarea';
 
 const BookingForm = () => {
   const { toast } = useToast();
