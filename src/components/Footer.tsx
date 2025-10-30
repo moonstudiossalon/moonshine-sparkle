@@ -1,4 +1,4 @@
-import { Instagram, Facebook } from 'lucide-react';
+import { Instagram, Facebook, PhoneOutgoing, Flower } from 'lucide-react';
 
 const Footer = () => {
   const scrollToSection = (id: string) => {
@@ -42,7 +42,7 @@ const Footer = () => {
             <h4 className="font-semibold text-foreground mb-4">Follow Us</h4>
             <div className="flex gap-4">
               <a
-                href="https://instagram.com/moonstudio"
+                href="https://instagram.com/moon_studios_21"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all"
@@ -50,12 +50,20 @@ const Footer = () => {
                 <Instagram className="w-5 h-5" />
               </a>
               <a
-                href="https://facebook.com/moonstudio"
+                href="tel:+919004832184"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all"
               >
-                <Facebook className="w-5 h-5" />
+                <PhoneOutgoing className="w-5 h-5" />
+              </a>
+              <a
+                href="https://wellnessta.com/partner/moon-studip-a-andheri-east-c-mumbai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all"
+              >
+                <Flower className="w-5 h-5" />
               </a>
             </div>
           </div>
@@ -63,11 +71,11 @@ const Footer = () => {
 
         <div className="border-t border-border pt-8 text-center">
           <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} Moon Studios. All rights reserved. Crafted with care in Mumbai.
+            © {new Date().getFullYear()} Moon Studios. All rights reserved. Crafted with care.
           </p>
         </div>
       </div>
-    </footer>
+    </footer >
   );
 };
 

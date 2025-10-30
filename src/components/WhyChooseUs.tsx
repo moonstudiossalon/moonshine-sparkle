@@ -17,12 +17,7 @@ const WhyChooseUs = () => {
       icon: Leaf,
       title: 'Transparent Products',
       description: 'We not only tell you what products we use, but also explain why and how they work for your specific needs.',
-    },
-    {
-      icon: Shield,
-      title: 'Complete After Care',
-      description: 'We provide scheduled aftercare guidance. Your satisfaction and continued well-being are our top priorities.',
-    },
+    }
   ];
 
   return (

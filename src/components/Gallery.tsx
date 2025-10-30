@@ -111,10 +111,10 @@ const Gallery = () => {
             variant="outline"
             size="lg"
             className="border-primary text-primary hover:bg-primary hover:text-primary-foreground inline-flex items-center gap-2"
-            onClick={() => window.open('https://instagram.com/moonstudio', '_blank')}
+            onClick={() => window.open('https://www.instagram.com/moon_studios_21', '_blank')}
           >
             <Instagram className="w-5 h-5" />
-            See More on Instagram
+            See More
           </Button>
         </div>
       </div>

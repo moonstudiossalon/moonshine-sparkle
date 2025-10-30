@@ -5,7 +5,6 @@ import useEmblaCarousel from 'embla-carousel-react';
 import serviceNanoplastia from '@/assets/service-nanoplastia.jpg';
 import serviceOlaplex from '@/assets/service-olaplex.jpg';
 import serviceColoring from '@/assets/service-coloring.jpg';
-import serviceFacial from '@/assets/service-facial.jpg';
 import serviceHaircut from '@/assets/service-haircut.jpg';
 
 const TopServices = () => {
@@ -46,14 +45,6 @@ const TopServices = () => {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-semibold text-foreground mb-3">
             Your Hair & Our Full-Care
           </h2>
-          <Button
-            onClick={() => navigate('/services')}
-            variant="outline"
-            size="lg"
-            className="mt-4 border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-          >
-            View All Services
-          </Button>
         </div>
 
         {/* Desktop: 4 cards in a row */}
@@ -107,6 +98,18 @@ const TopServices = () => {
             </div>
           ))}
         </div>
+
+        <div className="text-center">
+          <Button
+            onClick={() => navigate('/services')}
+            variant="outline"
+            size="lg"
+            className="mt-4 border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+          >
+            View All Services
+          </Button>
+        </div>
+
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-import { Star, ExternalLink } from 'lucide-react';
+import { Star, ExternalLink, MapPin } from 'lucide-react';
 import { Button } from './ui/button';
 
 const ClientReviews = () => {
@@ -79,14 +79,10 @@ const ClientReviews = () => {
             variant="outline"
             size="lg"
             className="border-primary text-primary hover:bg-primary hover:text-primary-foreground inline-flex items-center gap-2"
-            onClick={() => window.open('https://g.page/r/CSOTIiLv5ERBEBM/review', '_blank')}
+            onClick={() => window.open('https://maps.app.goo.gl/2UPypwux2XpX57jE6', '_blank')}
           >
-            <img 
-              src="https://www.google.com/favicon.ico" 
-              alt="Google" 
-              className="w-5 h-5"
-            />
-            View All Reviews on Google
+            <MapPin className="w-5 h-5" />
+            View All Reviews
           </Button>
         </div>
       </div>

@@ -14,13 +14,13 @@ const Hero = () => {
     <section className="relative pt-28 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Subtle gradient vignette */}
       <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 via-transparent to-transparent pointer-events-none" />
-      
+
       <div className="container mx-auto max-w-7xl relative">
         <div className="text-center mb-12 sm:mb-16 animate-fade-up">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-playfair font-bold text-foreground mb-6 leading-tight px-4">
             Bring Your Family<br />Leave With Style
           </h1>
-          
+
           {/* Trust badges */}
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mb-6 sm:mb-8 text-sm sm:text-base text-muted-foreground px-4">
             <div className="flex items-center gap-2">
@@ -47,24 +47,26 @@ const Hero = () => {
 
           {/* Rating badges */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm sm:text-base text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <img 
-                src="https://akam.cdn.jdmagicbox.com/images/icontent/jdrwd/jd_vertical_logo.svg" 
-                alt="JustDial" 
-                className="w-5 h-5"
-              />
-              <Star className="w-4 h-4 text-primary fill-primary" />
-              <span className="font-medium">4.9 Rating on JustDial</span>
-            </div>
+            <a href="https://www.justdial.com/Mumbai/Moon-Studio-The-Family-Salon-_-Hair-Salon-Andheri-East/022PXX22-XX22-180915172828-M8K4_BZDET" target="_blank" rel="noopener noreferrer">
+              <div className="flex items-center gap-2">
+                <Star className="w-4 h-4 text-primary fill-primary" />
+                <span className="font-medium">4.9 Rating on </span>
+                <img
+                  src="https://akam.cdn.jdmagicbox.com/images/icontent/jdrwd/jdlogosvg.svg"
+                  alt="JustDial"
+                  className="h-4"
+                />
+              </div>
+            </a>
             <div className="hidden sm:block w-1 h-1 rounded-full bg-muted-foreground" />
             <div className="flex items-center gap-2">
-              <img 
-                src="https://www.google.com/favicon.ico" 
-                alt="Google" 
-                className="w-5 h-5"
-              />
               <Star className="w-4 h-4 text-primary fill-primary" />
-              <span className="font-medium">4.9 Rating on Google</span>
+              <span className="font-medium">4.9 Rating on</span>
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1200px-Google_2015_logo.svg.png"
+                alt="Google"
+                className="h-5"
+              />
             </div>
           </div>
         </div>
@@ -94,7 +96,7 @@ const Hero = () => {
               </div>
             ))}
           </div>
-          
+
           {/* Desktop: Grid layout */}
           <div className="hidden sm:grid grid-cols-3 gap-6">
             {[

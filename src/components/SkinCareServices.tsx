@@ -45,14 +45,6 @@ const SkinCareServices = () => {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-semibold text-foreground mb-3">
             Glow Starts With Us
           </h2>
-          <Button
-            onClick={() => navigate('/services')}
-            variant="outline"
-            size="lg"
-            className="mt-4 border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-          >
-            View All Services
-          </Button>
         </div>
 
         {/* Desktop: 4 cards in a row */}
@@ -105,6 +97,17 @@ const SkinCareServices = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="text-center">
+          <Button
+            onClick={() => navigate('/services')}
+            variant="outline"
+            size="lg"
+            className="mt-4 border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+          >
+            View All Services
+          </Button>
         </div>
       </div>
     </section>
