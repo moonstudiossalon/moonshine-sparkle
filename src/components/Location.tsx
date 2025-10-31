@@ -33,7 +33,7 @@ const Location = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground mb-2">Address</h3>
-                  <p className="text-muted-foreground">
+                  <p className="text-muted-foreground text-base font-normal">
                      Moon Studios(The Family Salon) <br /> 
                      Shop C, Harmony Apartments, 13, Krishanlal Marwah Marg <br />
                      Ashok Nagar, Andheri East, Mumbai, Maharashtra 400072
