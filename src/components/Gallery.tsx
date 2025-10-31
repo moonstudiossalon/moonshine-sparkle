@@ -68,38 +68,33 @@ const Gallery = () => {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {transformations.map((item, index) => <div key={index} className="group relative aspect-[5/7] overflow-hidden rounded-2xl shadow-soft hover:shadow-hover transition-all duration-300 cursor-pointer animate-fade-up" style={{
+          {transformations.map((item, index) => <div key={index} className="relative aspect-square overflow-hidden rounded-2xl shadow-soft hover:shadow-hover transition-all duration-300 animate-fade-up" style={{
           animationDelay: `${index * 50}ms`
         }}>
-              {item.type === 'image' ? <>
-                  {/* Before Image */}
-                  <img src={item.before} alt={`Before - ${item.alt}`} className="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-500 group-hover:opacity-0" loading="lazy" />
-                  {/* After Image */}
-                  <img src={item.after} alt={`After - ${item.alt}`} className="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-500 group-hover:scale-105" loading="lazy" />
-                  {/* Before/After Labels */}
-                  <div className="absolute top-3 left-3 bg-background/90 text-foreground px-3 py-1 rounded-full text-xs font-semibold transition-opacity duration-300 group-hover:opacity-0">
+              <div className="flex h-full w-full">
+                {/* Before - Left Half */}
+                <div className="relative w-1/2 h-full overflow-hidden">
+                  <img src={item.before} alt={`Before - ${item.alt}`} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                  <div className="absolute top-3 left-3 bg-background/90 text-foreground px-2 py-1 rounded-full text-xs font-semibold">
                     Before
                   </div>
-                  <div className="absolute top-3 right-3 bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                </div>
+                
+                {/* After - Right Half */}
+                <div className="relative w-1/2 h-full overflow-hidden">
+                  {item.type === 'image' ? (
+                    <img src={item.after} alt={`After - ${item.alt}`} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                  ) : (
+                    <video src={item.videoUrl} className="absolute inset-0 w-full h-full object-cover" loop muted playsInline autoPlay />
+                  )}
+                  <div className="absolute top-3 right-3 bg-primary text-primary-foreground px-2 py-1 rounded-full text-xs font-semibold">
                     After
                   </div>
-                </> : <>
-              {/* Before Video Thumbnail */}
-                  <img src={item.before} alt={`Before - ${item.alt}`} className="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-500 group-hover:opacity-0" loading="lazy" />
-                  {/* After Video */}
-                  <video src={item.videoUrl} className="absolute inset-0 w-full h-full object-cover z-0" loop muted playsInline onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => {
-              e.currentTarget.pause();
-              e.currentTarget.currentTime = 0;
-            }} />
-                  {/* Before/After Labels for Video */}
-                  <div className="absolute top-3 left-3 bg-background/90 text-foreground px-3 py-1 rounded-full text-xs font-semibold transition-opacity duration-300 group-hover:opacity-0">
-                    Before
-                  </div>
-                  <div className="absolute top-3 right-3 bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    After
-                  </div>
-                </>}
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+              </div>
+              
+              {/* Divider Line */}
+              <div className="absolute top-0 left-1/2 h-full w-0.5 bg-white/50 -translate-x-1/2" />
             </div>)}
         </div>
 
