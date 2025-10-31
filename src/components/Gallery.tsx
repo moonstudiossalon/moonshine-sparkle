@@ -73,9 +73,9 @@ const Gallery = () => {
         }}>
               {item.type === 'image' ? <>
                   {/* Before Image */}
-                  <img src={item.before} alt={`Before - ${item.alt}`} className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0" loading="lazy" />
+                  <img src={item.before} alt={`Before - ${item.alt}`} className="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-500 group-hover:opacity-0" loading="lazy" />
                   {/* After Image */}
-                  <img src={item.after} alt={`After - ${item.alt}`} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+                  <img src={item.after} alt={`After - ${item.alt}`} className="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-500 group-hover:scale-105" loading="lazy" />
                   {/* Before/After Labels */}
                   <div className="absolute top-3 left-3 bg-background/90 text-foreground px-3 py-1 rounded-full text-xs font-semibold transition-opacity duration-300 group-hover:opacity-0">
                     Before
@@ -84,10 +84,10 @@ const Gallery = () => {
                     After
                   </div>
                 </> : <>
-                  {/* Before Video Thumbnail */}
-                  <img src={item.before} alt={`Before - ${item.alt}`} className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0" loading="lazy" />
+              {/* Before Video Thumbnail */}
+                  <img src={item.before} alt={`Before - ${item.alt}`} className="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-500 group-hover:opacity-0" loading="lazy" />
                   {/* After Video */}
-                  <video src={item.videoUrl} className="absolute inset-0 w-full h-full object-cover" loop muted playsInline onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => {
+                  <video src={item.videoUrl} className="absolute inset-0 w-full h-full object-cover z-0" loop muted playsInline onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => {
               e.currentTarget.pause();
               e.currentTarget.currentTime = 0;
             }} />
