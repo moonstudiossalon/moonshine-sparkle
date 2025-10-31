@@ -19,7 +19,7 @@ const HairProblems = () => {
     icon: TrendingDown,
     label: 'Hair Thinning'
   }];
-  return <section className="py-16 px-4 sm:px-6 lg:px-8 bg-secondary/30">
+  return <section className="py-16 px-4  lg:px-8 bg-secondary/30">
       <div className="container mx-auto max-w-4xl text-center px-0">
         <h2 className="text-2xl sm:text-4xl font-playfair font-semibold text-foreground mb-10">
           Your Hair Has Stories<br />We Listen

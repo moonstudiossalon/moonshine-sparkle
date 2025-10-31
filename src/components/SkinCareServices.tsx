@@ -30,7 +30,7 @@ const SkinCareServices = () => {
     loop: false,
     dragFree: true
   });
-  return <section className="py-20 px-4 sm:px-6 lg:px-8 bg-secondary/20">
+  return <section className="py-20 px-4  lg:px-8 bg-secondary/20">
       <div className="container mx-auto max-w-7xl px-0">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-semibold text-foreground mb-3">

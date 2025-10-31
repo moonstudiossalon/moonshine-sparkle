@@ -244,7 +244,7 @@ const Services = () => {
       
       <main className="flex-1 pt-20">
         {/* Hero Section */}
-        <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-primary/10 via-accent/5 to-primary/10">
+        <section className="py-12 sm:py-16 px-4  lg:px-8 bg-gradient-to-br from-primary/10 via-accent/5 to-primary/10">
           <div className="container mx-auto max-w-6xl text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-playfair font-semibold text-foreground mb-4">
               Services
@@ -257,7 +257,7 @@ const Services = () => {
 
         {/* Tabs */}
         <section className="sticky top-16 sm:top-20 z-40 bg-background border-b border-border shadow-sm">
-          <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="container mx-auto max-w-6xl px-4  lg:px-8">
             <div className="flex gap-2 py-4">
               {(['women', 'men', 'massage'] as const).map((tab) => (
                 <button
@@ -277,7 +277,7 @@ const Services = () => {
         </section>
 
         {/* Search */}
-        <section className="py-8 px-4 sm:px-6 lg:px-8 bg-secondary/20">
+        <section className="py-8 px-4  lg:px-8 bg-secondary/20">
           <div className="container mx-auto max-w-4xl">
             <div className="relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
@@ -293,7 +293,7 @@ const Services = () => {
         </section>
 
         {/* Services List */}
-        <section className="py-12 px-4 sm:px-6 lg:px-8 pb-32 sm:pb-12">
+        <section className="py-12 px-4  lg:px-8 pb-32 sm:pb-12">
           <div className="container mx-auto max-w-4xl">
             {filteredServices.length === 0 ? (
               <div className="text-center py-12">

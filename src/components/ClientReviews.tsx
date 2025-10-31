@@ -23,7 +23,7 @@ const ClientReviews = () => {
     text: "Omg!! This is by far the best hair experience ever. Monica the owner is a sweetheart! They listened carefully and gave me exactly what I wanted. Sadam was magical!! He was patient and did my treatment with so much care and professionalism. My hair has never looked better! Highly recommend Moon Studios to everyone looking for a solid transformation. These people are amazing at their jobs and lovely humans too!",
     avatar: 'AD'
   }];
-  return <section id="reviews" className="py-20 px-4 sm:px-6 lg:px-8 bg-secondary/20">
+  return <section id="reviews" className="py-20 px-4  lg:px-8 bg-secondary/20">
       <div className="container mx-auto max-w-6xl px-0">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-semibold text-foreground">

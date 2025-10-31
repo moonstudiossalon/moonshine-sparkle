@@ -33,7 +33,7 @@ const HowItWorks = () => {
     title: 'Follow-up Care',
     description: 'We provide personalized aftercare tips to maintain your beautiful results.'
   }];
-  return <section id="process" ref={sectionRef} className="py-20 px-4 sm:px-6 lg:px-8 relative">
+  return <section id="process" ref={sectionRef} className="py-20 px-4  lg:px-8 relative">
       <div className="container mx-auto max-w-6xl px-0">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-semibold text-foreground">

@@ -30,8 +30,8 @@ const TopServices = () => {
     loop: false,
     dragFree: true
   });
-  return <section id="services" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="container max-w-7xl py-0 mx-0 px-0">
+  return <section id="services" className="py-20 px-4  lg:px-8">
+      <div className="container max-w-7xl py-0 mx-auto px-0">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-semibold text-foreground mb-3">
             Your Hair & Our Full-Care

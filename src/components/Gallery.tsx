@@ -65,8 +65,8 @@ const Gallery = () => {
     alt: 'Beautiful hair color result',
     type: 'image'
   }];
-  return <section id="gallery" className="py-20 px-4 sm:px-6 lg:px-8 bg-secondary/20">
-    <div className="container max-w-7xl mx-0 px-0">
+  return <section id="gallery" className="py-20 px-4  lg:px-8 bg-secondary/20">
+    <div className="container max-w-7xl mx-auto px-0">
       <div className="text-center mb-16">
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-semibold text-foreground mb-3">
           See Transformations You’ll Love

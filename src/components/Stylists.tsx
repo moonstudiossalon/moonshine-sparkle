@@ -12,8 +12,8 @@ const Stylists = () => {
     description: 'Dubai-trained, problem-solver extraordinaire, creative cuts.',
     image: stylistShehzad
   }];
-  return <section id="stylists" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="container max-w-6xl mx-0 px-[15px]">
+  return <section id="stylists" className="py-20 px-4  lg:px-8">
+      <div className=" max-w-4xl mx-auto ">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-semibold text-foreground mb-3">
             The people behind<br />all this attention

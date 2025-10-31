@@ -40,7 +40,7 @@ const BookingForm = () => {
   const handleCall = () => {
     window.location.href = 'tel:+919004832184';
   };
-  return <section id="booking" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-primary/10 via-accent/5 to-primary/10">
+  return <section id="booking" className="py-16 sm:py-20 px-4  lg:px-8 bg-gradient-to-br from-primary/10 via-accent/5 to-primary/10">
       <div className="container mx-auto max-w-6xl px-0">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
           {/* Left side - Heading */}

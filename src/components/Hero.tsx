@@ -10,7 +10,7 @@ const Hero = () => {
       behavior: 'smooth'
     });
   };
-  return <section className="relative pt-28 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+  return <section className="relative pt-28 sm:pt-32 pb-16 sm:pb-20 px-4  lg:px-8 overflow-hidden">
       {/* Subtle gradient vignette */}
       <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 via-transparent to-transparent pointer-events-none" />
 
