@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Search, Phone, MessageCircle, Calendar, ChevronDown } from 'lucide-react';
+import { Search, Phone, MessageCircle, Calendar, ChevronDown, ArrowLeft, Users, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import {
@@ -18,8 +19,17 @@ type ServiceCategory = {
 };
 
 const Services = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'women' | 'men' | 'massage'>('women');
   const [searchQuery, setSearchQuery] = useState('');
+
+  const handleBookingClick = (serviceType?: string) => {
+    navigate('/', { state: { scrollTo: 'booking', serviceType } });
+  };
+
+  const handleNavigateToSection = (section: string) => {
+    navigate('/', { state: { scrollTo: section } });
+  };
 
   const womenServices: ServiceCategory[] = [
     {
@@ -245,13 +255,51 @@ const Services = () => {
       <main className="flex-1 pt-20">
         {/* Hero Section */}
         <section className="py-12 sm:py-16 px-4  lg:px-8 bg-gradient-to-br from-primary/10 via-accent/5 to-primary/10">
-          <div className="container mx-auto max-w-6xl text-center">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-playfair font-semibold text-foreground mb-4">
-              Services
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Salon & spa services in Andheri East
-            </p>
+          <div className="container mx-auto max-w-6xl">
+            <Button 
+              onClick={() => navigate('/')}
+              variant="ghost"
+              className="mb-6 text-muted-foreground hover:text-foreground"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Home
+            </Button>
+            
+            <div className="text-center">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-playfair font-semibold text-foreground mb-4">
+                Services
+              </h1>
+              <p className="text-lg text-muted-foreground mb-6">
+                Salon & spa services in Andheri East
+              </p>
+              
+              <div className="flex flex-wrap justify-center gap-3">
+                <Button 
+                  onClick={() => handleBookingClick()}
+                  size="lg"
+                  className="bg-primary hover:bg-accent text-primary-foreground"
+                >
+                  <Calendar className="w-4 h-4 mr-2" />
+                  Book Appointment
+                </Button>
+                <Button 
+                  onClick={() => handleNavigateToSection('stylists')}
+                  variant="outline"
+                  size="lg"
+                >
+                  <Users className="w-4 h-4 mr-2" />
+                  Meet Our Stylists
+                </Button>
+                <Button 
+                  onClick={() => handleNavigateToSection('contact')}
+                  variant="outline"
+                  size="lg"
+                >
+                  <MapPin className="w-4 h-4 mr-2" />
+                  Our Location
+                </Button>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -327,6 +375,15 @@ const Services = () => {
                           </li>
                         ))}
                       </ul>
+                      
+                      <Button
+                        onClick={() => handleBookingClick(category.title)}
+                        size="sm"
+                        className="mt-4 w-full sm:w-auto bg-primary hover:bg-accent text-primary-foreground"
+                      >
+                        <Calendar className="w-4 h-4 mr-2" />
+                        Book {category.title}
+                      </Button>
                       {activeTab === 'men' && category.id === 'men-waxing' && (
                         <p className="mt-4 text-xs text-muted-foreground italic">
                           * No Boyzilian Wax
