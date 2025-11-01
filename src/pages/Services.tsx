@@ -5,6 +5,8 @@ import { Input } from '@/components/ui/input';
 import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import StructuredData from '@/components/StructuredData';
+import { useEffect } from 'react';
 import {
   Accordion,
   AccordionContent,
@@ -22,6 +24,19 @@ const Services = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'women' | 'men' | 'massage'>('women');
   const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    document.title = 'Services - Moon Studios | Hair, Beauty & Spa in Andheri East';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Professional hair salon services in Andheri East. Nanoplastia, Olaplex, Balayage, hair coloring, facials, massage & more. Expert stylists. Book now.');
+    }
+    
+    const canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (canonicalLink) {
+      canonicalLink.setAttribute('href', 'https://moonstudiossalon.in/services');
+    }
+  }, []);
 
   const handleBookingClick = (serviceType?: string) => {
     navigate('/', { state: { scrollTo: 'booking', serviceType } });
@@ -256,6 +271,17 @@ const Services = () => {
         {/* Hero Section */}
         <section className="py-12 sm:py-16 px-4  lg:px-8 bg-gradient-to-br from-primary/10 via-accent/5 to-primary/10">
           <div className="container mx-auto max-w-6xl">
+            {/* Breadcrumbs */}
+            <nav className="mb-6 text-sm" aria-label="Breadcrumb">
+              <ol className="flex items-center space-x-2 text-muted-foreground">
+                <li>
+                  <a href="/" className="hover:text-foreground transition-colors">Home</a>
+                </li>
+                <li>/</li>
+                <li className="text-foreground font-medium" aria-current="page">Services</li>
+              </ol>
+            </nav>
+            
             <Button 
               onClick={() => navigate('/')}
               variant="ghost"
