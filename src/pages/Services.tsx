@@ -1,35 +1,35 @@
-import { useState } from 'react';
-import { Search, Phone, MessageCircle, Calendar, ChevronDown, ArrowLeft, Users, MapPin } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Scissors, Sparkles, Hand, Droplet, Activity, User, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Card, CardContent } from '@/components/ui/card';
 import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StructuredData from '@/components/StructuredData';
-import { useEffect } from 'react';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
+
+type Service = {
+  id: string;
+  name: string;
+  description: string;
+};
 
 type ServiceCategory = {
   id: string;
   title: string;
-  services: string[];
+  description: string;
+  icon: React.ReactNode;
+  services: Service[];
 };
 
 const Services = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'women' | 'men' | 'massage'>('women');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [activeCategory, setActiveCategory] = useState('hair');
 
   useEffect(() => {
     document.title = 'Services - Moon Studios | Hair, Beauty & Spa in Andheri East';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Professional hair salon services in Andheri East. Nanoplastia, Olaplex, Balayage, hair coloring, facials, massage & more. Expert stylists. Book now.');
+      metaDescription.setAttribute('content', 'Professional salon services: haircuts, facials, manicure, pedicure, waxing, massage & grooming. Everything you need to feel your best. Book now in Andheri East.');
     }
     
     const canonicalLink = document.querySelector('link[rel="canonical"]');
@@ -38,424 +38,294 @@ const Services = () => {
     }
   }, []);
 
-  const handleBookingClick = (serviceType?: string) => {
-    navigate('/', { state: { scrollTo: 'booking', serviceType } });
-  };
-
-  const handleNavigateToSection = (section: string) => {
-    navigate('/', { state: { scrollTo: section } });
-  };
-
-  const womenServices: ServiceCategory[] = [
-    {
-      id: 'women-threading',
-      title: 'Threading',
-      services: ['Eyebrow', 'Upper lip / forehead / chin', 'Face sides', 'Full face'],
-    },
-    {
-      id: 'women-cleanup',
-      title: 'Clean-Up',
-      services: ['Normal', 'Advance'],
-    },
-    {
-      id: 'women-bleach-dtan',
-      title: 'Bleach / D-Tan',
-      services: [
-        'Face',
-        'Back / stomach',
-        'Full hands',
-        'Full legs',
-        'Feet',
-        'Full body bleach / D-tan',
-        'Body polish',
-        'Full body scrub',
-      ],
-    },
-    {
-      id: 'women-waxing-lipo',
-      title: 'Waxing (Liposoluble)',
-      services: [
-        'Upper lip / chin / forehead',
-        'Underarms',
-        'Full hands',
-        'Full legs',
-        'Half legs',
-        'Full back',
-        'Front',
-        'Full body',
-      ],
-    },
-    {
-      id: 'women-waxing-rica',
-      title: 'Waxing (Rica)',
-      services: [
-        'Combo areas (face/hands/underarms variants)',
-        'Full body',
-        'Belly',
-        'Full back',
-        'Bikini (V-wax – Normal / Rica)',
-      ],
-    },
-    {
-      id: 'women-hair-rituals',
-      title: 'Hair Rituals',
-      services: [
-        'Hairwash & blow blast',
-        'Hairwash & blow-dry',
-        'Color-protector / dandruff / treatment shampoo',
-        'Head massage (25 mins)',
-        'Head massage + steam + wash + set',
-        'Blow-dry / iron',
-      ],
-    },
-    {
-      id: 'women-hair-spa',
-      title: 'Hair Spa',
-      services: [
-        'L\'Oréal',
-        'Protein (Keratin)',
-        'Moroccan (Argan oil)',
-        'Repair (Olaplex-type)',
-        'Cooling',
-      ],
-    },
-    {
-      id: 'women-haircuts',
-      title: 'Haircuts',
-      services: [
-        'Kids haircut',
-        'Fringe / flicks / bangs',
-        'Normal haircut',
-        'Advance haircut',
-        'Advance haircut + wash + blow + set',
-      ],
-    },
-    {
-      id: 'women-facials-regular',
-      title: 'Facials – Regular',
-      services: ['Fruit / papaya', 'Charcoal'],
-    },
-    {
-      id: 'women-facials-advance',
-      title: 'Facials – Advance',
-      services: ['Lotus / VLCC', 'Cheryls / Ozone', 'O3+'],
-    },
-    {
-      id: 'women-facials-organic',
-      title: 'Facials – Organic',
-      services: [
-        'Diamond (insta glow)',
-        'Papaya (wrinkle care)',
-        'Vitamin-C (skin rejuvenation)',
-        'Red wine (anti-ageing)',
-        'Oxygen (tan)',
-        'Detox (acne)',
-      ],
-    },
-    {
-      id: 'women-medi-facial',
-      title: 'Medi Facial',
-      services: ['Hydra (cleanup)', 'Hydra (facial)', 'Hydra MD', 'Power mask (add-on)'],
-    },
-    {
-      id: 'women-pedicure',
-      title: 'Pedicure',
-      services: ['Normal', 'Herbal', 'Spa', 'Pedilogix'],
-    },
-    {
-      id: 'women-manicure',
-      title: 'Manicure',
-      services: ['Normal', 'Herbal', 'Spa', 'Pedilogix'],
-    },
-  ];
-
-  const menServices: ServiceCategory[] = [
-    {
-      id: 'men-hair-rituals',
-      title: 'Hair Rituals (Men)',
-      services: [
-        'Hairwash',
-        'Hair set (with / without wash)',
-        'Basic haircut',
-        'Fade / advance haircut',
-        'Clean shave',
-        'Beard trim',
-        'Beard color',
-        'Moustache color',
-        'Head massage',
-        'Head massage + steam + wash',
-        'Hair colour (L\'Oréal / Innova / Majirel)',
-        'Base shade / fashion shade',
-        'Cleansing / moisturizer (SPF)',
-        'Hair spa (L\'Oréal / Keratin / Moroccan)',
-        'Smoothening',
-        'Keratin treatment',
-        'Dandruff treatment',
-        'Hairfall treatment',
-      ],
-    },
-    {
-      id: 'men-waxing',
-      title: 'Waxing (Liposoluble – Men)',
-      services: [
-        'Upper lip / chin / forehead',
-        'Underarms',
-        'Full legs',
-        'Half legs',
-        'Full hands & underarms',
-        'Full hands',
-        'Back',
-        'Front',
-        'Full body',
-      ],
-    },
-  ];
-
-  const massageServices: ServiceCategory[] = [
-    {
-      id: 'massage-therapy',
-      title: 'Massage Therapy (Unisex)',
-      services: [
-        'Normal body massage – 45 mins',
-        'Deep tissue – 45 mins',
-        'Deep relaxation – 45 mins',
-        'Joints points – 30/45 mins',
-        'Points & nerves – 30 mins',
-        'Thai massage – 45 mins',
-        'Foot massage – 20 mins',
-        'Back massage – 20 mins',
-        'Head massage – 30 mins',
-        'Shoulder & hands – 30 mins',
-      ],
-    },
-  ];
-
-  const getActiveServices = () => {
-    switch (activeTab) {
-      case 'women':
-        return womenServices;
-      case 'men':
-        return menServices;
-      case 'massage':
-        return massageServices;
-      default:
-        return womenServices;
+  const scrollToCategory = (categoryId: string) => {
+    setActiveCategory(categoryId);
+    const element = document.getElementById(categoryId);
+    if (element) {
+      const offset = 200;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
   };
 
-  const filterServices = (categories: ServiceCategory[]) => {
-    if (!searchQuery) return categories;
-    
-    return categories
-      .map(category => ({
-        ...category,
-        services: category.services.filter(service =>
-          service.toLowerCase().includes(searchQuery.toLowerCase())
-        ),
-      }))
-      .filter(category => category.services.length > 0);
+  const handleBookingClick = () => {
+    window.location.href = '/#booking';
   };
 
-  const filteredServices = filterServices(getActiveServices());
+  const serviceCategories: ServiceCategory[] = [
+    {
+      id: 'hair',
+      title: 'Hair',
+      description: 'Cuts, wash & style, spa, and colour treatments.',
+      icon: <Scissors className="w-5 h-5" />,
+      services: [
+        { id: 'kids-haircut', name: 'Kids Haircut', description: 'Gentle, quick, styled to suit.' },
+        { id: 'fringe', name: 'Fringe / Flicks / Bangs', description: 'Frame your face with precision.' },
+        { id: 'normal-haircut', name: 'Normal Haircut', description: 'Classic cut with brief consult.' },
+        { id: 'advance-haircut', name: 'Advance Haircut', description: 'Detailed styling and consultation.' },
+        { id: 'advance-haircut-wash', name: 'Advance Haircut + Wash & Blow Set', description: 'Citc classes, and polished finish.' },
+        { id: 'hair-wash-blast', name: 'Hair Wash & Blow Blast', description: 'Quick refresh with volume.' },
+        { id: 'hair-wash-dry', name: 'Hair Wash & Blow Dry', description: 'Professional wash and styling.' },
+        { id: 'hair-color', name: 'Hair Color & Treatment', description: 'Full color service with care.' },
+        { id: 'hair-spa', name: 'Hair Spa', description: 'Loreal / Protein / Moroccan/Olaplex/ Cooling.' },
+      ],
+    },
+    {
+      id: 'skin-face',
+      title: 'Skin & Face',
+      description: 'Facials, clean-ups, threading and skin treatments.',
+      icon: <Sparkles className="w-5 h-5" />,
+      services: [
+        { id: 'eyebrow-thread', name: 'Eyebrow Threading', description: 'Precise eyebrow shaping.' },
+        { id: 'upper-lip-thread', name: 'Upper Lip Threading', description: 'Quick and clean hair removal.' },
+        { id: 'forehead-thread', name: 'Forehead Threading', description: 'Smooth forehead finish.' },
+        { id: 'chin-thread', name: 'Chin Threading', description: 'Gentle chin hair removal.' },
+        { id: 'face-sides-thread', name: 'Face Sides Threading', description: 'Side facial hair removal.' },
+        { id: 'full-face-thread', name: 'Full Face Threading', description: 'Complete facial threading.' },
+        { id: 'normal-cleanup', name: 'Normal Clean-Up', description: 'Essential facial cleaning.' },
+        { id: 'advance-cleanup', name: 'Advanced Clean-Up', description: 'Deep cleanse with treatment.' },
+        { id: 'fruit-facial', name: 'Regular Facial - Fruit/Papaya', description: 'Natural fruit-based facial.' },
+        { id: 'charcoal-facial', name: 'Regular Facial - Charcoal', description: 'Deep cleansing charcoal.' },
+        { id: 'lotus-facial', name: 'Advance Facial - Lotus/VLCC', description: 'Premium spa facial.' },
+        { id: 'cheryls-facial', name: 'Advance Facial - Cheryls/Ozone', description: 'Luxury brand treatment.' },
+        { id: 'o3-facial', name: 'Advance Facial - O3+', description: 'Advanced oxygen therapy.' },
+        { id: 'diamond-facial', name: 'Organic Facial - Diamond Insta Glow', description: 'Instant radiance boost.' },
+        { id: 'papaya-facial', name: 'Organic Facial - Papaya Wrinkle Care', description: 'Anti-aging treatment.' },
+        { id: 'vitamin-c-facial', name: 'Organic Facial - Vitamin C Rejuvenate', description: 'Skin brightening therapy.' },
+        { id: 'red-vine-facial', name: 'Organic Facial - Red Vine Anti-Ageing', description: 'Premium anti-aging care.' },
+        { id: 'oxygen-facial', name: 'Organic Facial - Oxygen Tan', description: 'Tan removal treatment.' },
+        { id: 'detox-facial', name: 'Organic Facial - Detox Acne', description: 'Acne care solution.' },
+        { id: 'hydra-cleanup', name: 'Medi Facial - Hydra Cleanup', description: 'Medical-grade cleanse.' },
+        { id: 'hydra-facial', name: 'Medi Facial - Hydra Facial', description: 'Deep hydration treatment.' },
+        { id: 'hydra-md', name: 'Medi Facial - Hydra MD', description: 'Advanced hydra therapy.' },
+        { id: 'power-mask', name: 'Medi Facial - Power Mask Add-on', description: 'Intensive mask treatment.' },
+        { id: 'face-bleach', name: 'Face Bleach/D-Tan', description: 'Skin lightening and tan removal.' },
+        { id: 'back-bleach', name: 'Back & Stomach Bleach/D-Tan', description: 'Body bleaching service.' },
+        { id: 'hands-bleach', name: 'Full Hands Bleach/D-Tan', description: 'Arm brightening treatment.' },
+        { id: 'legs-bleach', name: 'Full Legs Bleach/D-Tan', description: 'Leg lightening service.' },
+        { id: 'feet-bleach', name: 'Feet Bleach/D-Tan', description: 'Foot care treatment.' },
+        { id: 'body-bleach', name: 'Full Body Bleach/D-Tan', description: 'Complete body treatment.' },
+        { id: 'body-polish', name: 'Body Polish', description: 'Full body exfoliation.' },
+        { id: 'body-scrub', name: 'Full Body Scrub', description: 'Deep cleansing scrub.' },
+      ],
+    },
+    {
+      id: 'nails-feet',
+      title: 'Nails & Feet',
+      description: 'Manicures, pedicures and nail care.',
+      icon: <Hand className="w-5 h-5" />,
+      services: [
+        { id: 'normal-manicure', name: 'Normal Manicure', description: 'Basic hand and nail care.' },
+        { id: 'herbal-manicure', name: 'Herbal Manicure', description: 'Natural herb-infused care.' },
+        { id: 'spa-manicure', name: 'Spa Manicure', description: 'Relaxing spa treatment.' },
+        { id: 'pedilogix-manicure', name: 'Pedilogix Manicure', description: 'Premium professional care.' },
+        { id: 'normal-pedicure', name: 'Normal Pedicure', description: 'Essential foot care.' },
+        { id: 'herbal-pedicure', name: 'Herbal Pedicure', description: 'Natural foot treatment.' },
+        { id: 'spa-pedicure', name: 'Spa Pedicure', description: 'Luxurious foot spa.' },
+        { id: 'pedilogix-pedicure', name: 'Pedilogix Pedicure', description: 'Advanced foot therapy.' },
+        { id: 'nail-cut-file', name: 'Cut / File Add-on', description: 'Quick nail shaping.' },
+      ],
+    },
+    {
+      id: 'waxing-grooming',
+      title: 'Waxing & Grooming',
+      description: 'Hair removal services for all areas.',
+      icon: <Droplet className="w-5 h-5" />,
+      services: [
+        { id: 'lipo-combo', name: 'Liposoluble Wax - Combo (FH+FL+UA)', description: 'Full hands, legs and underarms.' },
+        { id: 'lipo-fh-ua', name: 'Liposoluble Wax - FH+UA', description: 'Hands and underarms.' },
+        { id: 'lipo-ua', name: 'Liposoluble Wax - UA Only', description: 'Underarms only.' },
+        { id: 'lipo-fi', name: 'Liposoluble Wax - FI Only', description: 'Facial hair removal.' },
+        { id: 'rica-combo', name: 'Rica Wax - Combo (FH+FL+UA)', description: 'Premium wax combo.' },
+        { id: 'rica-fh-ua', name: 'Rica Wax - FH+UA', description: 'Premium hands and underarms.' },
+        { id: 'rica-ua', name: 'Rica Wax - UA Only', description: 'Premium underarms.' },
+        { id: 'rica-fi', name: 'Rica Wax - FI Only', description: 'Premium facial wax.' },
+        { id: 'rica-body', name: 'Rica Wax - Full Body', description: 'Complete body waxing.' },
+        { id: 'men-face-wax', name: 'Men - Upper Lip/Chin/Forehead', description: 'Facial hair removal.' },
+        { id: 'men-ua-wax', name: 'Men - Underarms', description: 'Underarm waxing.' },
+        { id: 'men-half-legs', name: 'Men - Half Legs', description: 'Lower leg waxing.' },
+        { id: 'men-full-legs', name: 'Men - Full Legs', description: 'Complete leg waxing.' },
+        { id: 'men-fh-ua', name: 'Men - Full Hands & Underarms', description: 'Arms and underarms.' },
+        { id: 'men-fh', name: 'Men - Full Hands', description: 'Complete arm waxing.' },
+        { id: 'men-back', name: 'Men - Back', description: 'Back hair removal.' },
+        { id: 'men-front', name: 'Men - Front', description: 'Chest hair removal.' },
+        { id: 'men-body', name: 'Men - Full Body', description: 'Complete body waxing.' },
+      ],
+    },
+    {
+      id: 'massage-wellness',
+      title: 'Massage & Wellness',
+      description: 'Therapeutic massages for relaxation.',
+      icon: <Activity className="w-5 h-5" />,
+      services: [
+        { id: 'normal-massage', name: 'Normal Body Massage (45 mins)', description: 'Full body relaxation.' },
+        { id: 'deep-tissue', name: 'Deep Tissue Massage (45 mins)', description: 'Intense muscle therapy.' },
+        { id: 'deep-relax', name: 'Deep Relaxation Massage (45 mins)', description: 'Ultimate stress relief.' },
+        { id: 'joints-massage', name: 'Joints & Nerves Massage (30 mins)', description: 'Targeted joint care.' },
+        { id: 'thai-massage', name: 'Thai Massage (45 mins)', description: 'Traditional Thai therapy.' },
+        { id: 'foot-massage', name: 'Foot Massage (20 mins)', description: 'Reflexology foot care.' },
+        { id: 'back-massage', name: 'Back Massage (20 mins)', description: 'Upper body relief.' },
+        { id: 'head-massage', name: 'Head Massage (30 mins)', description: 'Scalp and head therapy.' },
+        { id: 'shoulder-massage', name: 'Shoulder & Hands Massage (30 mins)', description: 'Upper body focus.' },
+      ],
+    },
+    {
+      id: 'mens-grooming',
+      title: 'Men\'s Grooming',
+      description: 'Specialized services for men.',
+      icon: <User className="w-5 h-5" />,
+      services: [
+        { id: 'men-hairwash', name: 'Hair Wash', description: 'Professional hair cleansing.' },
+        { id: 'clean-shave', name: 'Clean Shave', description: 'Smooth professional shave.' },
+        { id: 'beard-trim', name: 'Beard Trim', description: 'Expert beard shaping.' },
+        { id: 'beard-color', name: 'Beard Color', description: 'Professional beard coloring.' },
+        { id: 'moustache-color', name: 'Moustache Color', description: 'Moustache tinting service.' },
+        { id: 'hair-set', name: 'Hair Set (With/Without Wash)', description: 'Styling and setting.' },
+        { id: 'basic-haircut', name: 'Basic Haircut', description: 'Standard mens cut.' },
+        { id: 'fade-haircut', name: 'Fade / Advance Haircut', description: 'Modern fade styles.' },
+        { id: 'men-head-massage', name: 'Head Massage / Steam Wash', description: 'Relaxing scalp treatment.' },
+        { id: 'men-hair-color', name: 'Hair Colour (Base/Fashion Shade)', description: 'Complete color service.' },
+        { id: 'men-hair-spa', name: 'Hair Spa for Men', description: 'Loreal/Protein/Keratin/Smoothing.' },
+        { id: 'men-treatments', name: 'Dandruff/Hairfall Treatment', description: 'Specialized scalp care.' },
+      ],
+    },
+  ];
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
 
   return (
     <div className="min-h-screen flex flex-col">
+      <StructuredData />
       <Header />
       
       <main className="flex-1 pt-20">
         {/* Hero Section */}
-        <section className="py-12 sm:py-16 px-4  lg:px-8 bg-gradient-to-br from-primary/10 via-accent/5 to-primary/10">
-          <div className="container mx-auto max-w-6xl">
-            {/* Breadcrumbs */}
-            <nav className="mb-6 text-sm" aria-label="Breadcrumb">
-              <ol className="flex items-center space-x-2 text-muted-foreground">
-                <li>
-                  <a href="/" className="hover:text-foreground transition-colors">Home</a>
-                </li>
-                <li>/</li>
-                <li className="text-foreground font-medium" aria-current="page">Services</li>
-              </ol>
-            </nav>
-            
-            <Button 
-              onClick={() => navigate('/')}
-              variant="ghost"
-              className="mb-6 text-muted-foreground hover:text-foreground"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Home
-            </Button>
-            
-            <div className="text-center">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-playfair font-semibold text-foreground mb-4">
-                Services
-              </h1>
-              <p className="text-lg text-muted-foreground mb-6">
-                Salon & spa services in Andheri East
-              </p>
-              
-              <div className="flex flex-wrap justify-center gap-3">
-                <Button 
-                  onClick={() => handleBookingClick()}
-                  size="lg"
-                  className="bg-primary hover:bg-accent text-primary-foreground"
-                >
-                  <Calendar className="w-4 h-4 mr-2" />
-                  Book Appointment
-                </Button>
-                <Button 
-                  onClick={() => handleNavigateToSection('stylists')}
-                  variant="outline"
-                  size="lg"
-                >
-                  <Users className="w-4 h-4 mr-2" />
-                  Meet Our Stylists
-                </Button>
-                <Button 
-                  onClick={() => handleNavigateToSection('contact')}
-                  variant="outline"
-                  size="lg"
-                >
-                  <MapPin className="w-4 h-4 mr-2" />
-                  Our Location
-                </Button>
-              </div>
+        <section className="py-16 px-4 bg-gradient-to-br from-primary/5 via-background to-accent/5">
+          <div className="container mx-auto max-w-6xl text-center">
+            <p className="text-sm uppercase tracking-wider text-primary mb-4">SERVICES</p>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-playfair font-semibold mb-6">
+              Everything you need to feel your best
+            </h1>
+            <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+              Hair, skin, nails, waxing, massage, and grooming — browse and book in seconds.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Button onClick={handleBookingClick} size="lg" className="bg-primary hover:bg-primary/90">
+                <Calendar className="w-5 h-5 mr-2" />
+                Book Appointment
+              </Button>
+              <Button 
+                onClick={() => navigate('/')} 
+                variant="outline" 
+                size="lg"
+              >
+                Back to Home
+              </Button>
             </div>
           </div>
         </section>
 
-        {/* Tabs */}
-        <section className="sticky top-16 sm:top-20 z-40 bg-background border-b border-border shadow-sm">
-          <div className="container mx-auto max-w-6xl px-4  lg:px-8">
-            <div className="flex gap-2 py-4">
-              {(['women', 'men', 'massage'] as const).map((tab) => (
+        {/* Category Navigation */}
+        <section className="sticky top-16 z-40 bg-background/95 backdrop-blur-sm border-b shadow-sm">
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex overflow-x-auto gap-2 md:gap-3 pb-2 md:pb-0 scrollbar-hide md:justify-center">
+              {serviceCategories.map((category) => (
                 <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`flex-1 px-6 py-3 rounded-xl font-semibold text-sm sm:text-base transition-all ${
-                    activeTab === tab
-                      ? 'bg-primary text-primary-foreground shadow-medium'
-                      : 'bg-card text-muted-foreground hover:bg-primary/10'
+                  key={category.id}
+                  onClick={() => scrollToCategory(category.id)}
+                  className={`flex items-center gap-2 px-4 md:px-6 py-2.5 rounded-full whitespace-nowrap font-medium transition-all ${
+                    activeCategory === category.id
+                      ? 'bg-primary text-primary-foreground shadow-md'
+                      : 'bg-secondary/50 text-foreground hover:bg-secondary'
                   }`}
                 >
-                  {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                  {category.icon}
+                  <span className="text-sm md:text-base">{category.title}</span>
                 </button>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Search */}
-        <section className="py-8 px-4  lg:px-8 bg-secondary/20">
-          <div className="container mx-auto max-w-4xl">
-            <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-              <Input
-                type="text"
-                placeholder="Search services..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-12 h-12 rounded-xl border-2 border-border bg-background text-foreground focus:ring-2 focus:ring-primary"
-              />
-            </div>
-          </div>
-        </section>
+        {/* Service Categories */}
+        <section className="py-12 px-4">
+          <div className="container mx-auto max-w-7xl space-y-20">
+            {serviceCategories.map((category, categoryIndex) => (
+              <div 
+                key={category.id} 
+                id={category.id}
+                className={`scroll-mt-32 ${categoryIndex > 0 ? 'pt-8 border-t' : ''}`}
+              >
+                <div className="mb-8 text-center md:text-left">
+                  <h2 className="text-3xl md:text-4xl font-playfair font-semibold mb-3">
+                    {category.title}
+                  </h2>
+                  <p className="text-lg text-muted-foreground">
+                    {category.description}
+                  </p>
+                </div>
 
-        {/* Services List */}
-        <section className="py-12 px-4  lg:px-8 pb-32 sm:pb-12">
-          <div className="container mx-auto max-w-4xl">
-            {filteredServices.length === 0 ? (
-              <div className="text-center py-12">
-                <p className="text-muted-foreground text-lg">No services found matching your search.</p>
-              </div>
-            ) : (
-              <Accordion type="multiple" className="space-y-4">
-                {filteredServices.map((category) => (
-                  <AccordionItem
-                    key={category.id}
-                    value={category.id}
-                    id={category.id}
-                    className="bg-card rounded-2xl border-2 border-border overflow-hidden shadow-soft"
-                  >
-                    <AccordionTrigger
-                      className="px-6 py-4 hover:no-underline hover:bg-secondary/20 transition-colors [&[data-state=open]]:bg-primary/5"
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {category.services.map((service) => (
+                    <Card 
+                      key={service.id}
+                      className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
                     >
-                      <h3 className="text-lg sm:text-xl font-semibold text-foreground text-left">
-                        {category.title}
-                      </h3>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-6 pb-4">
-                      <ul className="space-y-2">
-                        {category.services.map((service, idx) => (
-                          <li
-                            key={idx}
-                            className="flex items-start gap-3 text-muted-foreground py-2 border-b border-border last:border-0"
-                          >
-                            <span className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
-                            <span className="text-sm sm:text-base">{service}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      
-                      <Button
-                        onClick={() => handleBookingClick(category.title)}
-                        size="sm"
-                        className="mt-4 w-full sm:w-auto bg-primary hover:bg-accent text-primary-foreground"
-                      >
-                        <Calendar className="w-4 h-4 mr-2" />
-                        Book {category.title}
-                      </Button>
-                      {activeTab === 'men' && category.id === 'men-waxing' && (
-                        <p className="mt-4 text-xs text-muted-foreground italic">
-                          * No Boyzilian Wax
+                      <CardContent className="p-6">
+                        <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+                          {service.name}
+                        </h3>
+                        <p className="text-sm text-muted-foreground mb-4 min-h-[2.5rem]">
+                          {service.description}
                         </p>
-                      )}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            )}
+                        <Button 
+                          onClick={handleBookingClick}
+                          className="w-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground"
+                        >
+                          Book Now
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
-        {/* Sticky Bottom Bar - Mobile Only */}
-        <div className="fixed bottom-0 left-0 right-0 z-50 bg-background border-t border-border shadow-lg sm:hidden">
-          <div className="container mx-auto px-4 py-3">
-            <div className="flex gap-2">
-              <Button
-                onClick={() => window.location.href = 'tel:+919004832184'}
-                size="sm"
-                variant="outline"
-                className="flex-1 h-11 border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-              >
-                <Phone className="w-4 h-4 mr-1" />
-                Call
-              </Button>
-              <Button
-                onClick={() => window.open('https://wa.me/919004832184', '_blank')}
-                size="sm"
-                variant="outline"
-                className="flex-1 h-11 border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-              >
-                <MessageCircle className="w-4 h-4 mr-1" />
-                WhatsApp
-              </Button>
-              <Button
-                onClick={() => window.location.href = '/#booking'}
-                size="sm"
-                className="flex-1 h-11 bg-primary hover:bg-accent text-primary-foreground"
-              >
-                <Calendar className="w-4 h-4 mr-1" />
-                Book
-              </Button>
-            </div>
+        {/* CTA Section */}
+        <section className="py-16 px-4 bg-gradient-to-br from-primary/10 via-accent/5 to-primary/10">
+          <div className="container mx-auto max-w-4xl text-center">
+            <h2 className="text-3xl md:text-4xl font-playfair font-semibold mb-4">
+              Ready to book your appointment?
+            </h2>
+            <p className="text-lg text-muted-foreground mb-8">
+              Experience professional care from our expert stylists
+            </p>
+            <Button 
+              onClick={handleBookingClick}
+              size="lg"
+              className="bg-primary hover:bg-primary/90 text-lg px-12 py-6 h-auto"
+            >
+              <Calendar className="w-5 h-5 mr-2" />
+              Book Now
+            </Button>
           </div>
-        </div>
+        </section>
+
+        {/* Floating Booking Button */}
+        <Button
+          onClick={handleBookingClick}
+          className="fixed bottom-6 right-6 z-50 rounded-full h-16 w-16 md:h-auto md:w-auto md:px-6 shadow-2xl bg-primary hover:bg-primary/90 hover:scale-105 transition-transform"
+          size="lg"
+        >
+          <Calendar className="w-6 h-6 md:mr-2" />
+          <span className="hidden md:inline">Book Appointment</span>
+        </Button>
       </main>
 
       <Footer />
