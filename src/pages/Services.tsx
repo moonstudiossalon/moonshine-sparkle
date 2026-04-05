@@ -62,22 +62,26 @@ type ServiceCategory = {
 const Categories = ({ categories, activeCategory, scrollToCategory }: { categories: ServiceCategory[], activeCategory: string, scrollToCategory: (id: string) => void }) => (
   <section className="sticky top-16 z-40 bg-background/95 backdrop-blur-sm border-b shadow-sm">
     <div className="container mx-auto px-4 max-w-7xl py-3">
-      <div className="flex overflow-x-auto gap-2 pb-1 md:gap-3 md:pb-0 md:justify-center scrollbar-hide">
-        {categories.map(category => (
-          <button
-            key={category.id}
-            onClick={() => scrollToCategory(category.id)}
-            className={cn(
-              'flex items-center gap-2 px-4 md:px-5 py-2.5 rounded-full whitespace-nowrap font-medium transition-all text-sm cursor-pointer',
-              activeCategory === category.id
-                ? 'bg-primary text-primary-foreground shadow-md'
-                : 'bg-secondary/50 text-foreground hover:bg-secondary'
-            )}
-          >
-            <span className="flex-shrink-0">{category.icon}</span>
-            <span>{category.title}</span>
-          </button>
-        ))}
+      <div className="flex overflow-x-auto gap-2 pb-2 md:gap-3 md:pb-0 md:justify-center scrollbar-hide">
+        {categories.map(category => {
+          const isActive = activeCategory === category.id;
+          return (
+            <button
+              key={category.id}
+              onClick={() => scrollToCategory(category.id)}
+              className={cn(
+                'flex items-center gap-2 px-4 md:px-5 py-2.5 rounded-full whitespace-nowrap transition-all duration-200 cursor-pointer min-w-max',
+                'min-h-[44px]',
+                isActive
+                  ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/25 scale-[1.02]'
+                  : 'bg-secondary/50 text-muted-foreground hover:text-foreground hover:bg-secondary'
+              )}
+            >
+              <span className="w-5 h-5 flex items-center justify-center flex-shrink-0">{category.icon}</span>
+              <span className={cn('font-medium text-sm', isActive ? 'font-semibold' : 'font-medium')}>{category.title}</span>
+            </button>
+          );
+        })}
       </div>
     </div>
   </section>

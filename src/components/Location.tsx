@@ -1,16 +1,28 @@
+import { useEffect, useRef, useState } from 'react';
 import { MapPin, Clock, CreditCard, Phone, Mail } from 'lucide-react';
 import { Button } from './ui/button';
 const Location = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
   const mapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.8501965309724!2d72.88492991149732!3d19.114226682023627!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c991b4c48baf%3A0x59444ef9221923!2sMoon%20Studios-The%20Family%20Salon-Nanoplastia%20Hair%20Treatment%20%7C%20Hydra%20Medi%20Facial%20%7C%20Olaplex%20Hair%20Treatment-Balayage%20Hair%20colour!5e0!3m2!1sen!2sin!4v1761295422766!5m2!1sen!2sin";
-  return <section id="contact" className="py-20 px-4  lg:px-8">
+  return <section ref={sectionRef} id="contact" className="py-20 px-4  lg:px-8">
       <div className="container mx-auto max-w-7xl px-0">
-        <div className="text-center mb-16">
+        <div className={`scroll-fade-up ${isVisible ? 'visible' : ''}`}>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-semibold text-foreground">
             Find Us Here
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 scroll-fade-up ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: '200ms' }}>
           {/* Map */}
           <div className="rounded-2xl overflow-hidden shadow-medium h-[500px] bg-card relative group cursor-pointer">
             <iframe src={mapUrl} width="100%" height="100%" style={{

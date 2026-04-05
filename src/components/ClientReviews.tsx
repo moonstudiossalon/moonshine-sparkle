@@ -1,6 +1,18 @@
+import { useEffect, useRef, useState } from 'react';
 import { Star, ExternalLink, MapPin } from 'lucide-react';
 import { Button } from './ui/button';
 const ClientReviews = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
   const reviews = [{
     name: 'Riddhima C.',
     rating: 5,
@@ -23,18 +35,21 @@ const ClientReviews = () => {
     text: "Omg!! This is by far the best hair experience ever. Monica the owner is a sweetheart! They listened carefully and gave me exactly what I wanted. Sadam was magical!! He was patient and did my treatment with so much care and professionalism. My hair has never looked better! Highly recommend Moon Studios to everyone looking for a solid transformation. These people are amazing at their jobs and lovely humans too!",
     avatar: 'AD'
   }];
-  return <section id="reviews" className="py-20 px-4  lg:px-8 bg-secondary/20">
+  return <section
+    ref={sectionRef}
+    id="reviews"
+    className="py-20 px-4  lg:px-8 bg-secondary/20"
+  >
       <div className="container mx-auto max-w-6xl px-0">
-        <div className="text-center mb-16">
+        <div className={`scroll-fade-up ${isVisible ? 'visible' : ''}`}>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-semibold text-foreground">
             Real Stories from Happy Clients
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-          {reviews.map((review, index) => <div key={index} className="bg-card rounded-2xl p-6 shadow-soft hover:shadow-hover transition-all duration-300 animate-fade-up" style={{
-          animationDelay: `${index * 100}ms`
-        }}>
+          {reviews.map((review, index) => <div key={index} className={`scroll-fade-up ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: `${(index + 1) * 100}ms` }}>
+              <div className="bg-card rounded-2xl p-6 shadow-soft hover:shadow-hover transition-all duration-300 hover:-translate-y-1">
               {/* Avatar and name */}
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center font-semibold text-primary">
@@ -58,10 +73,11 @@ const ClientReviews = () => {
               <p className="text-sm text-muted-foreground leading-relaxed">
                 "{review.text}"
               </p>
+              </div>
             </div>)}
         </div>
 
-        <div className="text-center space-y-4">
+        <div className={`text-center space-y-4 scroll-fade-up ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: '500ms' }}>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground inline-flex items-center gap-2" onClick={() => window.open('https://maps.app.goo.gl/2UPypwux2XpX57jE6', '_blank')}>
               <MapPin className="w-5 h-5" />

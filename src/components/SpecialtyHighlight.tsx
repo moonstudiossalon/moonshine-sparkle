@@ -42,24 +42,34 @@ const specialties = [
 const SpecialtyHighlight = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>();
-  const scrollRef = useRef<number | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const totalSlides = specialties.length;
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.15 }
+    );
+    const el = document.getElementById('specialty');
+    if (el) observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const goNext = useCallback(() => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    setActiveIndex((prev) => (prev + 1) % totalSlides);
+    setActiveIndex((prev) => (prev + 1) % specialties.length);
     setTimeout(() => setIsTransitioning(false), 500);
-  }, [isTransitioning, totalSlides]);
+  }, [isTransitioning]);
 
   const goPrev = useCallback(() => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    setActiveIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
+    setActiveIndex((prev) => (prev - 1 + specialties.length) % specialties.length);
     setTimeout(() => setIsTransitioning(false), 500);
-  }, [isTransitioning, totalSlides]);
+  }, [isTransitioning]);
 
   const goTo = useCallback((index: number) => {
     if (isTransitioning || index === activeIndex) return;
@@ -76,9 +86,7 @@ const SpecialtyHighlight = () => {
 
   useEffect(() => {
     timerRef.current = setTimeout(goNext, 8000);
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
   }, [goNext]);
 
   const scrollToBooking = () => {
@@ -94,21 +102,26 @@ const SpecialtyHighlight = () => {
   const current = specialties[activeIndex];
 
   return (
-    <section className="py-0 bg-primary/[0.03] overflow-hidden" aria-label="Featured Treatments">
-      {/* Carousel container */}
+    <section
+      id="specialty"
+      className={`py-0 bg-primary/[0.03] overflow-hidden transition-opacity duration-700 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+      aria-label="Featured Treatments"
+    >
       <div className="relative">
         {/* Navigation arrows */}
         <button
           onClick={goPrev}
-          aria-label={`Previous treatment`}
-          className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 bg-background/90 backdrop-blur-sm rounded-full p-2.5 shadow-medium hover:bg-background transition-colors cursor-pointer group"
+          aria-label="Previous treatment"
+          className={`absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 bg-background/90 backdrop-blur-sm rounded-full p-2.5 shadow-medium hover:bg-background transition-all cursor-pointer group scroll-fade-up ${isVisible ? 'visible' : ''}`}
+          style={{ transitionDelay: '100ms' }}
         >
           <ChevronLeft className="w-5 h-5 text-foreground group-hover:scale-110 transition-transform" />
         </button>
         <button
           onClick={goNext}
           aria-label="Next treatment"
-          className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 bg-background/90 backdrop-blur-sm rounded-full p-2.5 shadow-medium hover:bg-background transition-colors cursor-pointer group"
+          className={`absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 bg-background/90 backdrop-blur-sm rounded-full p-2.5 shadow-medium hover:bg-background transition-all cursor-pointer group scroll-fade-up ${isVisible ? 'visible' : ''}`}
+          style={{ transitionDelay: '200ms' }}
         >
           <ChevronRight className="w-5 h-5 text-foreground group-hover:scale-110 transition-transform" />
         </button>
@@ -116,70 +129,52 @@ const SpecialtyHighlight = () => {
         {/* Slide wrapper */}
         <div
           className="transition-opacity duration-500 ease-out"
-          style={{
-            opacity: isTransitioning ? 0 : 1
-          }}
-          onPointerDown={() => {
-            if (timerRef.current) clearTimeout(timerRef.current);
-          }}
-          onPointerUp={() => {
-            timerRef.current = setTimeout(goNext, 8000);
-          }}
+          style={{ opacity: isTransitioning ? 0 : 1 }}
+          onPointerDown={() => { if (timerRef.current) clearTimeout(timerRef.current); }}
+          onPointerUp={() => { timerRef.current = setTimeout(goNext, 8000); }}
         >
-          {/* Hero content */}
           <div className="container max-w-7xl mx-auto px-4">
-            {/* Before the main section, a warm intro row */}
-            <div className="flex items-center gap-2 mb-3">
-              <span className="inline-flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wide">
-                <current.icon className="w-3 h-3" />
-                {current.badge}
-              </span>
+            {/* Badge */}
+            <div className={`scroll-fade-up ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: '100ms' }}>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="inline-flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wide">
+                  <current.icon className="w-3 h-3" />
+                  {current.badge}
+                </span>
+              </div>
             </div>
 
-            {/* Split layout */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
               {/* Left — Visuals */}
               <div className="space-y-4">
-                {/* Before/After pair */}
-                <div className="grid grid-cols-2 gap-2 rounded-2xl overflow-hidden">
-                  <div className="relative aspect-[3/4]">
-                    <img
-                      src={current.beforeAfter.before}
-                      alt={`Before ${current.id}`}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                    <div className="absolute top-3 left-3 bg-background/90 text-foreground px-2.5 py-1 rounded-full text-xs font-semibold">
-                      Before
+                <div className={`scroll-scale ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: '200ms' }}>
+                  <div className="grid grid-cols-2 gap-2 rounded-2xl overflow-hidden">
+                    <div className="relative aspect-[3/4]">
+                      <img src={current.beforeAfter.before} alt={`Before ${current.id}`} className="w-full h-full object-cover" loading="lazy" />
+                      <div className="absolute top-3 left-3 bg-background/90 text-foreground px-2.5 py-1 rounded-full text-xs font-semibold">Before</div>
                     </div>
-                  </div>
-                  <div className="relative aspect-[3/4]">
-                    <img
-                      src={current.beforeAfter.after}
-                      alt={`After ${current.id}`}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                    <div className="absolute top-3 right-3 bg-primary text-primary-foreground px-2.5 py-1 rounded-full text-xs font-semibold">
-                      After
+                    <div className="relative aspect-[3/4]">
+                      <img src={current.beforeAfter.after} alt={`After ${current.id}`} className="w-full h-full object-cover" loading="lazy" />
+                      <div className="absolute top-3 right-3 bg-primary text-primary-foreground px-2.5 py-1 rounded-full text-xs font-semibold">After</div>
                     </div>
                   </div>
                 </div>
 
-                {/* Full width image */}
-                <div className="rounded-2xl overflow-hidden aspect-[2/1]">
-                  <img
-                    src={current.image}
-                    alt={current.id === 'nanoplastia' ? 'Nanoplastia treatment at Moon Studios' : 'Balayage coloring at Moon Studios'}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
+                <div className={`scroll-fade-up ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: '350ms' }}>
+                  <div className="rounded-2xl overflow-hidden aspect-[2/1]">
+                    <img
+                      src={current.image}
+                      alt={current.id === 'nanoplastia' ? 'Nanoplastia treatment at Moon Studios' : 'Balayage coloring at Moon Studios'}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
               </div>
 
               {/* Right — Story */}
               <div className="flex flex-col justify-center">
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-semibold text-foreground mb-6 leading-tight whitespace-pre-line">
+                <h2 className={`scroll-fade-left text-3xl sm:text-4xl lg:text-5xl font-playfair font-semibold text-foreground mb-6 leading-tight whitespace-pre-line ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: '200ms' }}>
                   {current.title}
                 </h2>
 
@@ -187,30 +182,21 @@ const SpecialtyHighlight = () => {
                   {current.body.map((paragraph, index) => (
                     <p
                       key={index}
-                      className="text-base sm:text-lg text-muted-foreground leading-relaxed animate-fade-up"
-                      style={{ animationDelay: `${index * 100}ms` }}
+                      className={`scroll-fade-left text-base sm:text-lg text-muted-foreground leading-relaxed ${isVisible ? 'visible' : ''}`}
+                      style={{ transitionDelay: `${300 + index * 100}ms` }}
                     >
                       {paragraph}
                     </p>
                   ))}
                 </div>
 
-                <div className="mt-8 animate-fade-up" style={{ animationDelay: '300ms' }}>
+                <div className={`scroll-fade-up mt-8 ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: '600ms' }}>
                   <div className="flex flex-col sm:flex-row gap-3">
-                    <Button
-                      onClick={scrollToBooking}
-                      size="lg"
-                      className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 h-auto text-base rounded-full"
-                    >
+                    <Button onClick={scrollToBooking} size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 h-auto text-base rounded-full">
                       {current.cta}
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
-                    <Button
-                      onClick={scrollToBooking}
-                      variant="outline"
-                      size="lg"
-                      className="border-primary/30 text-primary hover:bg-primary/5 px-8 py-6 h-auto text-base rounded-full"
-                    >
+                    <Button onClick={scrollToBooking} variant="outline" size="lg" className="border-primary/30 text-primary hover:bg-primary/5 px-8 py-6 h-auto text-base rounded-full">
                       Is This Right for You?
                     </Button>
                   </div>
@@ -235,7 +221,7 @@ const SpecialtyHighlight = () => {
         </div>
 
         {/* Dots */}
-        <div className="flex items-center justify-center gap-3 py-6">
+        <div className={`flex items-center justify-center gap-3 py-6 scroll-fade-up ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: '400ms' }}>
           {specialties.map((_, index) => (
             <button
               key={index}
@@ -251,7 +237,7 @@ const SpecialtyHighlight = () => {
         </div>
 
         {/* Auto-slide progress */}
-        <div className="h-1 bg-muted/10">
+        <div className={`h-1 bg-muted/10 scroll-fade-up ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: '500ms' }}>
           <div
             className="h-full bg-primary/30 transition-all duration-[8000ms] ease-linear"
             key={activeIndex}

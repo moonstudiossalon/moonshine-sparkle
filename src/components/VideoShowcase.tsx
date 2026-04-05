@@ -172,7 +172,7 @@ const VideoShowcase = () => {
 
         {/* Carousel */}
         <div className="relative mx-auto">
-          {/* Arrows */}
+          {/* Arrows — desktop */}
           <button
             onClick={scrollPrev}
             aria-label="Previous video"
@@ -186,6 +186,22 @@ const VideoShowcase = () => {
             className="hidden md:flex absolute -right-16 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-card shadow-medium hover:shadow-hover items-center justify-center transition-shadow"
           >
             <ChevronRight className="w-6 h-6 text-foreground" />
+          </button>
+
+          {/* Mobile arrows — left & right */}
+          <button
+            onClick={scrollPrev}
+            aria-label="Previous video"
+            className="md:hidden absolute left-1 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-card/90 backdrop-blur shadow-md hover:shadow-lg flex items-center justify-center active:scale-95 transition-all"
+          >
+            <ChevronLeft className="w-5 h-5 text-foreground" />
+          </button>
+          <button
+            onClick={scrollNext}
+            aria-label="Next video"
+            className="md:hidden absolute right-1 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-card/90 backdrop-blur shadow-md hover:shadow-lg flex items-center justify-center active:scale-95 transition-all"
+          >
+            <ChevronRight className="w-5 h-5 text-foreground" />
           </button>
 
           {/* Viewport — negative margin on mobile to full-bleed, then padded on larger screens */}

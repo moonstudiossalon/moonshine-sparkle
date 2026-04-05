@@ -1,6 +1,7 @@
 import useEmblaCarousel from 'embla-carousel-react';
 import AutoScroll from 'embla-carousel-auto-scroll';
 import { Star } from 'lucide-react';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 import sanchariImg from '../assets/images/sanchari_sengupta.png';
 import laxshImg from '../assets/images/laxsh_raj.png';
 import snehaImg from '../assets/images/dj_sneha.png';
@@ -9,6 +10,7 @@ import dubaiImg from '../assets/images/dubai.png';
 import nikhikImg from '../assets/images/nikhik.png';
 import sajilImg from '../assets/images/kandwala.png';
 const PreferredBy = () => {
+  const { ref, isVisible } = useScrollReveal({ threshold: 0.15 });
   const [emblaRef] = useEmblaCarousel({
     loop: true,
     dragFree: false
@@ -53,9 +55,12 @@ const PreferredBy = () => {
     image: sajilImg,
     url: 'https://www.instagram.com/sajilkhandelwal'
   }];
-  return <section className="py-16 px-4  lg:px-8 bg-primary/5">
+  return <section
+    ref={ref as React.RefObject<HTMLElement>}
+    className="py-16 px-4  lg:px-8 bg-primary/5"
+  >
       <div className="container mx-auto max-w-7xl">
-        <div className="text-center mb-12">
+        <div className={`text-center mb-12 scroll-fade-up ${isVisible ? 'visible' : ''}`}>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-semibold text-foreground mb-3 flex items-center justify-center gap-3">
             <Star className="w-8 h-8 text-primary fill-primary" />
             Loved by the Stylish
@@ -66,7 +71,8 @@ const PreferredBy = () => {
           </p>
         </div>
 
-        <div className="overflow-hidden" ref={emblaRef}>
+        <div className={`scroll-fade-in ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: '200ms' }}>
+          <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex gap-8">
             {[...clients, ...clients].map((client, index) => <div key={index} className="flex-[0_0_200px] min-w-0">
                 <div className="rounded-2xl p-8 duration-300 text-center h-full flex flex-col items-center justify-center py-0 px-0">
@@ -88,6 +94,7 @@ const PreferredBy = () => {
                   </button>
                 </div>
               </div>)}
+          </div>
           </div>
         </div>
       </div>

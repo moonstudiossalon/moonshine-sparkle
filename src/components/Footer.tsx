@@ -1,13 +1,25 @@
+import { useEffect, useRef, useState } from 'react';
 import { Instagram, Facebook, PhoneOutgoing, Flower } from 'lucide-react';
 
 const Footer = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <footer className="bg-secondary/30 py-12 px-4  lg:px-8 border-t border-border">
+    <footer ref={sectionRef} className={`bg-secondary/30 py-12 px-4  lg:px-8 border-t border-border scroll-fade-up ${isVisible ? 'visible' : ''}`}>
       <div className="container mx-auto max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}

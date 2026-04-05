@@ -1,10 +1,21 @@
 import { Phone } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from './ui/button';
 import { Textarea } from '@/components/ui/textarea';
 
 const BookingForm = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
@@ -42,7 +53,7 @@ const BookingForm = () => {
   };
 
   return (
-    <section id="booking" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden relative">
+    <section id="booking" ref={sectionRef} className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden relative">
       {/* Warm background */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-accent/5 to-primary/10 pointer-events-none" />
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
@@ -50,7 +61,7 @@ const BookingForm = () => {
       <div className="container mx-auto max-w-6xl px-0 relative">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-12 items-stretch">
           {/* Left side - Heading */}
-          <div className="lg:col-span-2 flex flex-col justify-center text-center lg:text-left">
+          <div className={`lg:col-span-2 flex flex-col justify-center text-center lg:text-left scroll-fade-right ${isVisible ? 'visible' : ''}`}>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-semibold text-foreground mb-4 sm:mb-6 leading-tight">
               Your Dream Hair<br />
               <span className="text-primary italic">Is One Call Away</span>
