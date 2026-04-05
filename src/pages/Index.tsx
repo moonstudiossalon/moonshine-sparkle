@@ -1,5 +1,6 @@
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
+import VideoShowcase from '@/components/VideoShowcase';
 import PreferredBy from '@/components/PreferredBy';
 import HairProblems from '@/components/HairProblems';
 import TopServices from '@/components/TopServices';
@@ -18,6 +19,7 @@ const Index = () => {
       <StructuredData />
       <Header />
       <Hero />
+      <VideoShowcase />
       <PreferredBy />
       <HairProblems />
       <TopServices />

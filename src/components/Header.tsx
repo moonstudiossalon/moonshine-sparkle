@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from './ui/button';
+import { Phone } from 'lucide-react';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -74,14 +75,23 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <Button
-            onClick={handleBookClick}
-            size="sm"
-            className="bg-primary hover:bg-accent text-primary-foreground font-semibold px-5 sm:px-7 h-9 sm:h-11 text-sm sm:text-base rounded-xl shadow-soft hover:shadow-medium transition-all"
-          >
-            Book Your Visit
-          </Button>
+          {/* Quick CTA Buttons */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <a
+              href="tel:+919004832184"
+              className="hidden md:flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-primary transition-colors"
+            >
+              <Phone className="w-4 h-4" />
+              Call Now
+            </a>
+            <Button
+              onClick={handleBookClick}
+              size="sm"
+              className="bg-primary hover:bg-accent text-primary-foreground font-semibold px-5 sm:px-7 h-9 sm:h-11 text-sm sm:text-base rounded-xl shadow-soft hover:shadow-medium transition-all"
+            >
+              Book Your Visit
+            </Button>
+          </div>
         </div>
       </div>
     </header>

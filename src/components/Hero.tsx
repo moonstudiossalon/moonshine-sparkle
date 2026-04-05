@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import hero1 from '@/assets/hero-1.jpg';
 import hero2 from '@/assets/hero-2.jpg';
 import hero3 from '@/assets/hero-3.jpg';
+import googleLogo from '@/assets/images/google-logo.png';
 const Hero = () => {
   const navigate = useNavigate();
   
@@ -27,7 +28,7 @@ const Hero = () => {
       <div className="container mx-auto max-w-7xl relative">
         <div className="text-center mb-12 sm:mb-16 animate-fade-up">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-playfair font-bold text-foreground mb-6 leading-tight px-0">
-            Andheri East's Favourite<br />Family Hair Salon
+            Your Neighbourhood<br />Family Salon
           </h1>
 
           {/* Trust badges */}
@@ -68,7 +69,7 @@ const Hero = () => {
             <div className="flex items-center gap-2">
               <Star className="w-4 h-4 text-primary fill-primary" />
               <span className="font-medium">4.9 Rating on</span>
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1200px-Google_2015_logo.svg.png" alt="Google" className="h-5" />
+              <img src={googleLogo} alt="Google" className="h-5" />
             </div>
           </div>
         </div>

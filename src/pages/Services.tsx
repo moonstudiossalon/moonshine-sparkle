@@ -83,7 +83,7 @@ const Services = () => {
     }
   };
   const handleCallClick = () => {
-    window.location.href = 'tel:+919876543210'; // Replace with actual salon phone number
+    window.location.href = 'tel:+919004832184';
   };
   const serviceCategories: ServiceCategory[] = [{
     id: 'hair',
