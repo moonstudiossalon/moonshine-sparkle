@@ -27,7 +27,7 @@ const Hero = () => {
       <div className="container mx-auto max-w-7xl relative">
         <div className="text-center mb-12 sm:mb-16 animate-fade-up">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-playfair font-bold text-foreground mb-6 leading-tight px-0">
-            Bring Your Family<br />Leave With Style
+            Andheri East's Favourite<br />Family Hair Salon
           </h1>
 
           {/* Trust badges */}

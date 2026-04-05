@@ -49,7 +49,7 @@ const HairProblems = () => {
           onClick={() => navigate('/services')}
           className="text-primary hover:text-accent font-semibold underline transition-colors"
         >
-          Discover our specialized hair treatments and solutions
+          Find the right treatment for your hair →
         </button>
       </div>
     </section>;

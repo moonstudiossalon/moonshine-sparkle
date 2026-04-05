@@ -21,7 +21,7 @@ const WhyChooseUs = () => {
             Why People Choose Us
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Families & Celebs Choose Us Because
+            Here's why families and celebrities choose us
           </p>
         </div>
 

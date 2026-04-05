@@ -16,7 +16,7 @@ const Footer = () => {
               Moon Studios
             </h3>
             <p className="text-muted-foreground text-sm">
-              Your trusted hair care partner in Andheri East. Where beauty meets precision.
+              Your trusted hair care partner in Andheri East. Precision cuts. Personal care.
             </p>
           </div>
 

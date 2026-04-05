@@ -48,7 +48,7 @@ const BookingForm = () => {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-semibold text-foreground mb-3 sm:mb-4">
               Your dream hair is<br />one appointment away
             </h2>
-            <p className="text-muted-foreground text-base sm:text-lg">Fill in your details and we'll get back to you</p>
+            <p className="text-muted-foreground text-base sm:text-lg">Book on WhatsApp — we'll confirm your slot in minutes.</p>
           </div>
           
           {/* Right side - Form */}
@@ -66,7 +66,7 @@ const BookingForm = () => {
 
             <div>
               <label htmlFor="problem" className="block text-sm font-semibold text-foreground mb-2">
-                Problem You Are Facing *
+                What's going on with your hair? *
               </label>
               <Textarea id="problem" value={formData.problem} onChange={e => setFormData({
                 ...formData,
