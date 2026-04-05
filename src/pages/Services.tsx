@@ -302,12 +302,12 @@ const Services = () => {
         <Categories categories={serviceCategories} activeCategory={activeCategory} scrollToCategory={scrollToCategory} />
 
         {/* Service Categories */}
-        <section className="py-12 px-4 pt-20">
-          <div className="container mx-auto max-w-7xl space-y-20 px-0">
-            {serviceCategories.map((category) => (
+        <section className="py-12 px-4 pt-16">
+          <div className="container mx-auto max-w-7xl px-0">
+            {serviceCategories.map((category, catIdx) => (
               <div key={category.id} id={category.id} className="scroll-mt-36">
                 {/* Category header */}
-                <div className="mb-8 text-center sm:text-left">
+                <div className="mb-6 text-center sm:text-left">
                   <div className="flex items-center gap-3 justify-center sm:justify-start mb-2">
                     <div className={cn('p-2 rounded-xl', category.color)}>
                       {category.icon}
@@ -320,6 +320,10 @@ const Services = () => {
                     {category.description}
                   </p>
                 </div>
+                {catIdx === 0 && <div className="mb-8" />}
+                {catIdx > 0 && (
+                  <div className="my-12 w-full h-px bg-border/40" />
+                )}
 
                 {/* Service cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">

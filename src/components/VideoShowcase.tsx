@@ -1,4 +1,4 @@
-import { Volume2, VolumeX, ChevronLeft, ChevronRight, Play } from 'lucide-react';
+import { Volume2, VolumeX, ChevronLeft, ChevronRight, Play, Instagram } from 'lucide-react';
 import { useCallback, useEffect, useState, useRef } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { cn } from '@/lib/utils';
@@ -150,28 +150,28 @@ const VideoShowcase = () => {
     <section
       ref={sectionRef}
       id="videos"
-      className="py-20 px-4 lg:px-8 bg-secondary/30 overflow-hidden"
+      className="py-12 sm:py-16 lg:py-20"
     >
-      <div className="container mx-auto max-w-7xl">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-0">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 sm:mb-12">
           <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-full mb-4">
             <Play className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium text-primary">
               See What We Do
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-semibold text-foreground mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-playfair font-semibold text-foreground mb-3">
             Watch The Vibes
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
             Real transformations, real moments — swipe through our favourite
             clips.
           </p>
         </div>
 
-        {/* Carousel — full-width on mobile, constrained on larger screens */}
-        <div className="relative sm:max-w-lg md:max-w-2xl lg:max-w-5xl xl:max-w-6xl mx-auto">
+        {/* Carousel */}
+        <div className="relative mx-auto">
           {/* Arrows */}
           <button
             onClick={scrollPrev}
@@ -188,23 +188,24 @@ const VideoShowcase = () => {
             <ChevronRight className="w-6 h-6 text-foreground" />
           </button>
 
-          {/* Viewport */}
+          {/* Viewport — negative margin on mobile to full-bleed, then padded on larger screens */}
           <div
-            className="overflow-hidden"
+            className="-mx-4 sm:mx-auto sm:max-w-lg md:max-w-2xl lg:max-w-5xl xl:max-w-6xl overflow-hidden"
             ref={emblaRef}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
-            <div className="flex gap-3 sm:gap-5">
+            <div className="flex gap-0 sm:gap-4 lg:gap-5">
+              {/* Leading spacer for gap between first and last video */}
               {videos.map((video, index) => {
                 const isActive = index === activeIndex;
                 return (
                   <div
                     key={video.id}
-                    className="flex-[0_0_320px] sm:flex-[0_0_360px] md:flex-[0_0_340px] lg:flex-[0_0_28%] transition-opacity duration-300"
+                    className="flex-[0_0_300px] sm:flex-[0_0_350px] md:flex-[0_0_310px] lg:flex-[0_0_25%] transition-opacity duration-300"
                   >
-                    <div className="bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-hover transition-shadow">
-                      {/* Iframe */}
+                    {/* Iframe — no card wrapper, full-bleed video */}
+                    <div className="rounded-2xl overflow-hidden relative group">
                       <div className="aspect-[9/16] w-full relative">
                         <iframe
                           ref={(el) => {
@@ -241,7 +242,7 @@ const VideoShowcase = () => {
 
                       {/* Desktop volume controls */}
                       {isInViewport && isActive && !isMobileRef.current && (
-                        <div className="hidden md:flex items-center gap-2 px-3 py-2">
+                        <div className="hidden md:flex items-center gap-2 px-3 py-2 bg-card">
                           <button
                             onClick={() => setIsMuted((p) => !p)}
                             className="text-foreground/70 hover:text-foreground transition-colors"
@@ -268,41 +269,56 @@ const VideoShowcase = () => {
                         </div>
                       )}
 
-                      {/* Mobile spacer */}
-                      {(!isInViewport || !isActive) && (
-                        <div className="md:hidden px-4 pt-2 pb-1" />
+                      {/* Caption — on mobile, simple text below video (no padding wasted) */}
+                      {(!isMobileRef.current || isInViewport) && (
+                        <div className="px-3 py-2.5 bg-card">
+                          <h3 className="font-semibold text-foreground text-sm mb-0.5 truncate">
+                            {video.title}
+                          </h3>
+                          <p className="text-xs text-muted-foreground truncate">
+                            {video.description}
+                          </p>
+                        </div>
                       )}
-
-                      {/* Caption */}
-                      <div className="px-4 pb-4">
-                        <h3 className="font-semibold text-foreground text-base mb-1">
-                          {video.title}
-                        </h3>
-                        <p className="text-sm text-muted-foreground">
-                          {video.description}
-                        </p>
-                      </div>
                     </div>
                   </div>
                 );
               })}
+
+              {/* Trailing spacer for gap between first and last video */}
+              <div className="flex-[0_0_0] sm:flex-[0_0_10%] md:flex-[0_0_3%] lg:flex-[0_0_0%]" />
             </div>
           </div>
 
           {/* Dots */}
-          <div className="flex justify-center gap-2 mt-8">
+          <div className="flex justify-center gap-2 mt-6 sm:mt-8">
             {videos.map((_, index) => (
               <button
                 key={index}
                 onClick={() => emblaApi?.scrollTo(index)}
+                aria-label={`Go to video ${index + 1}`}
                 className={cn(
-                  'h-2 rounded-full transition-all duration-300',
+                  'h-2 rounded-full transition-all duration-300 cursor-pointer',
                   index === activeIndex
-                    ? 'bg-primary w-8'
+                    ? 'bg-primary w-6 sm:w-8'
                     : 'w-2 bg-muted-foreground/30 hover:bg-muted-foreground/60'
                 )}
               />
             ))}
+          </div>
+
+          {/* Instagram CTA */}
+          <div className="flex justify-center mt-6 sm:mt-8">
+            <button
+              onClick={() => window.open('https://www.instagram.com/moonstudiossalon', '_blank')}
+              className="group inline-flex items-center gap-2 bg-gradient-to-r from-rose-500 via-fuchsia-500 to-rose-500 text-white px-5 py-2.5 rounded-full text-sm font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+            >
+              <Instagram className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
+              <span>Follow Us on Instagram</span>
+              <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
