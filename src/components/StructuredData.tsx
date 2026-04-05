@@ -5,17 +5,24 @@ const StructuredData = () => {
     const localBusinessSchema = {
       "@context": "https://schema.org",
       "@type": "HairSalon",
-      "name": "Moon Studios",
-      "description": "Certified stylists. 5000+ happy clients. Hygiene-first salon offering Nanoplastia, Olaplex, Balayage, and facials in Andheri East.",
-      "image": "/src/assets/favicon/favicon-32x32.png",
+      "name": "Moon Studios – The Family Salon",
+      "url": "https://moonstudiossalon.in/",
+      "description": "Top-rated family hair salon in Andheri East, Mumbai. Haircuts, Nanoplastia, Balayage, Olaplex & facials. Open all days.",
+      "image": "https://moonstudiossalon.in/og-image.jpg",
+      "telephone": "+919004832184",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Andheri East",
-        "addressLocality": "Mumbai",
+        "streetAddress": "Shop C13, Harmony Apartments, Krishanlal Marwah Marg, Ashok Nagar",
+        "addressLocality": "Andheri East",
         "addressRegion": "Maharashtra",
+        "postalCode": "400072",
         "addressCountry": "IN"
       },
-      "telephone": "+91-90048-32184",
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "19.114226682023627",
+        "longitude": "72.88492991149732"
+      },
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
@@ -26,6 +33,10 @@ const StructuredData = () => {
       ],
       "priceRange": "₹₹",
       "paymentAccepted": "Cash, Credit Card, Debit Card, UPI",
+      "currenciesAccepted": "INR",
+      "sameAs": [
+        "https://maps.app.goo.gl/YqntQGMKfKekQMN69"
+      ],
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.9",
