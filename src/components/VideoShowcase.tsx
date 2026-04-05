@@ -1,96 +1,162 @@
-import { Play, Instagram } from 'lucide-react';
-import { useState } from 'react';
+import { Play, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useCallback, useEffect, useState, useRef } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
 
 interface VideoItem {
-  type: 'instagram';
-  embedUrl: string;
-  caption: string;
+  id: string;
+  title: string;
+  description: string;
 }
 
 const videos: VideoItem[] = [
   {
-    type: 'instagram',
-    embedUrl: 'https://www.instagram.com/reel/REEL_ID_1/embed',
-    caption: 'Balayage transformation ✨',
+    id: 'kQqPJmDil40',
+    title: 'Fresh Fade Flow',
+    description: 'Sharp cuts that change the whole vibe.',
   },
   {
-    type: 'instagram',
-    embedUrl: 'https://www.instagram.com/reel/REEL_ID_2/embed',
-    caption: 'Hydra Facial glow up',
+    id: 'e_xiyPJ75G4',
+    title: 'Colour Transformation',
+    description: 'From dull to dazzling in one session.',
   },
   {
-    type: 'instagram',
-    embedUrl: 'https://www.instagram.com/reel/REEL_ID_3/embed',
-    caption: 'Nanoplastia hair treatment',
+    id: 'sIkMaPHcmJg',
+    title: 'The Salon Vibes',
+    description: 'Where good music meets great hair.',
+  },
+  {
+    id: 'vKog5vPy9gw',
+    title: 'Nanoplastia Magic',
+    description: 'Watch frizz disappear in real time.',
+  },
+  {
+    id: 'gMn0cAUdfrE',
+    title: 'Balayage Glow-Up',
+    description: 'Sun-kissed colour, zero effort after.',
+  },
+  {
+    id: '5zehCF1RbLA',
+    title: 'The Weekend Refresh',
+    description: 'Walk in tired, walk out ready.',
+  },
+  {
+    id: 'Io3uJg9J058',
+    title: 'Facial Glow',
+    description: 'That post-facial radiance in under an hour.',
   },
 ];
 
 const VideoShowcase = () => {
-  const [loadedCount, setLoadedCount] = useState(0);
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: 'center',
+    loop: true,
+    skipSnaps: false,
+  });
+  const [activeIndex, setActiveIndex] = useState(0);
+  const autoplayRef = useRef<ReturnType<typeof setInterval>>();
+
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+
+  // Track active slide
+  useEffect(() => {
+    if (!emblaApi) return;
+    const onSelect = () => setActiveIndex(emblaApi.selectedScrollSnap());
+    emblaApi.on('select', onSelect);
+    return () => {
+      emblaApi.off('select', onSelect);
+    };
+  }, [emblaApi]);
+
+  // Autoplay
+  useEffect(() => {
+    if (autoplayRef.current) clearInterval(autoplayRef.current);
+    autoplayRef.current = setInterval(scrollNext, 5000);
+    return () => clearInterval(autoplayRef.current);
+  }, [scrollNext]);
 
   return (
-    <section id="videos" className="py-20 px-4 lg:px-8 bg-secondary/30">
+    <section id="videos" className="py-20 px-4 lg:px-8 bg-secondary/30 overflow-hidden">
       <div className="container mx-auto max-w-7xl">
         {/* Section Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-full mb-4">
-            <Instagram className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-primary">Follow Our Journey</span>
+            <Play className="w-4 h-4 text-primary" />
+            <span className="text-sm font-medium text-primary">See What We Do</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-semibold text-foreground mb-4">
-            See Our Work In Action
+            Watch The Vibes
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Watch stunning transformations, styling tips, and behind-the-scenes moments from our salon
+            Real transformations, real moments — swipe through our favourite clips.
           </p>
         </div>
 
-        {/* Video Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
-          {videos.map((video, index) => (
-            <div
-              key={index}
-              className="relative bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-hover transition-shadow duration-300 group"
-            >
-              {/* Loading placeholder */}
-              {loadedCount <= index && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-muted z-10 pointer-events-none">
-                  <Play className="w-12 h-12 text-primary/60 mb-2" />
-                  <span className="text-sm text-muted-foreground">Loading...</span>
-                </div>
-              )}
-
-              <iframe
-                src={video.embedUrl}
-                width="100%"
-                height="550"
-                frameBorder="0"
-                scrolling="no"
-                allowFullScreen
-                className="w-full"
-                title={video.caption}
-                onLoad={() => setLoadedCount((prev) => prev + 1)}
-              />
-
-              {/* Caption overlay */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <p className="text-white text-sm font-medium">{video.caption}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* CTA to follow on social */}
-        <div className="text-center mt-12">
-          <a
-            href="https://www.instagram.com/moonstudiossalon"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-primary hover:text-accent transition-colors font-medium"
+        {/* Carousel */}
+        <div className="relative max-w-6xl mx-auto">
+          {/* Navigation Arrows */}
+          <button
+            onClick={scrollPrev}
+            className="absolute left-0 sm:-left-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-card shadow-medium hover:shadow-hover flex items-center justify-center transition-shadow"
           >
-            <Instagram className="w-5 h-5" />
-            Follow us on Instagram for more transformations
-          </a>
+            <ChevronLeft className="w-6 h-6 text-foreground" />
+          </button>
+          <button
+            onClick={scrollNext}
+            className="absolute right-0 sm:-right-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-card shadow-medium hover:shadow-hover flex items-center justify-center transition-shadow"
+          >
+            <ChevronRight className="w-6 h-6 text-foreground" />
+          </button>
+
+          {/* Viewport */}
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex gap-4 sm:gap-6">
+              {videos.map((video, index) => (
+                <div
+                  key={video.id}
+                  className="flex-[0_0_85%] sm:flex-[0_0_45%] md:flex-[0_0_35%] lg:flex-[0_0_30%] transition-opacity duration-300"
+                >
+                  <div className="bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-hover transition-shadow">
+                    {/* Video Embed */}
+                    <div className="aspect-[9/16] w-full relative max-w-[280px] mx-auto">
+                      <iframe
+                        src={`https://www.youtube.com/embed/${video.id}?autoplay=${activeIndex === index ? 1 : 0}&mute=${activeIndex === index ? 0 : 1}&loop=1&playlist=${video.id}&controls=0&modestbranding=1&rel=0`}
+                        className="absolute inset-0 w-full h-full"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        title={video.title}
+                      />
+                    </div>
+                    {/* Caption */}
+                    <div className="p-4">
+                      <h3 className="font-semibold text-foreground text-base mb-1">
+                        {video.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        {video.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Dots */}
+          <div className="flex justify-center gap-2 mt-8">
+            {videos.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => emblaApi?.scrollTo(index)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  index === activeIndex
+                    ? 'bg-primary w-8'
+                    : 'bg-muted-foreground/30 hover:bg-muted-foreground/60'
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
