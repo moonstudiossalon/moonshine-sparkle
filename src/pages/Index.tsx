@@ -1,15 +1,13 @@
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
-import VideoShowcase from '@/components/VideoShowcase';
 import PreferredBy from '@/components/PreferredBy';
-import HairProblems from '@/components/HairProblems';
 import TopServices from '@/components/TopServices';
-import SkinCareServices from '@/components/SkinCareServices';
+import SpecialtyHighlight from '@/components/SpecialtyHighlight';
 import WhyChooseUs from '@/components/WhyChooseUs';
-import HowItWorks from '@/components/HowItWorks';
 import ClientReviews from '@/components/ClientReviews';
-import Stylists from '@/components/Stylists';
+import VideoShowcase from '@/components/VideoShowcase';
 import Gallery from '@/components/Gallery';
+import Stylists from '@/components/Stylists';
 import BookingForm from '@/components/BookingForm';
 import Location from '@/components/Location';
 import Footer from '@/components/Footer';
@@ -19,14 +17,12 @@ const Index = () => {
       <StructuredData />
       <Header />
       <Hero />
-      <VideoShowcase />
       <PreferredBy />
-      <HairProblems />
       <TopServices />
-      <SkinCareServices />
+      <SpecialtyHighlight />
       <WhyChooseUs />
-      <HowItWorks />
       <ClientReviews />
+      <VideoShowcase />
       <Gallery />
       <Stylists />
       <BookingForm />

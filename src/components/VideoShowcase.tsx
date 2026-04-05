@@ -170,18 +170,20 @@ const VideoShowcase = () => {
           </p>
         </div>
 
-        {/* Carousel */}
-        <div className="relative max-w-6xl mx-auto">
+        {/* Carousel — full-width on mobile, constrained on larger screens */}
+        <div className="relative sm:max-w-lg md:max-w-2xl lg:max-w-5xl xl:max-w-6xl mx-auto">
           {/* Arrows */}
           <button
             onClick={scrollPrev}
-            className="hidden md:flex absolute left-0 sm:-left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-card shadow-medium hover:shadow-hover items-center justify-center transition-shadow"
+            aria-label="Previous video"
+            className="hidden md:flex absolute -left-16 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-card shadow-medium hover:shadow-hover items-center justify-center transition-shadow"
           >
             <ChevronLeft className="w-6 h-6 text-foreground" />
           </button>
           <button
             onClick={scrollNext}
-            className="hidden md:flex absolute right-0 sm:-right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-card shadow-medium hover:shadow-hover items-center justify-center transition-shadow"
+            aria-label="Next video"
+            className="hidden md:flex absolute -right-16 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-card shadow-medium hover:shadow-hover items-center justify-center transition-shadow"
           >
             <ChevronRight className="w-6 h-6 text-foreground" />
           </button>
@@ -193,17 +195,17 @@ const VideoShowcase = () => {
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
-            <div className="flex gap-4 sm:gap-6">
+            <div className="flex gap-3 sm:gap-5">
               {videos.map((video, index) => {
                 const isActive = index === activeIndex;
                 return (
                   <div
                     key={video.id}
-                    className="flex-[0_0_85%] sm:flex-[0_0_55%] md:flex-[0_0_40%] lg:flex-[0_0_30%] transition-opacity duration-300"
+                    className="flex-[0_0_320px] sm:flex-[0_0_360px] md:flex-[0_0_340px] lg:flex-[0_0_28%] transition-opacity duration-300"
                   >
                     <div className="bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-hover transition-shadow">
                       {/* Iframe */}
-                      <div className="aspect-[9/16] w-full relative max-w-[280px] mx-auto">
+                      <div className="aspect-[9/16] w-full relative">
                         <iframe
                           ref={(el) => {
                             if (el) {
