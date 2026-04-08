@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Instagram, Facebook, PhoneOutgoing, Flower } from 'lucide-react';
+import { Instagram, Facebook, PhoneOutgoing, Flower, Youtube, MapPin } from 'lucide-react';
 
 const Footer = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -61,6 +61,25 @@ const Footer = () => {
               >
                 <Instagram className="w-5 h-5" />
               </button>
+
+              <button
+                onClick={() => {
+                  window.open('https://www.youtube.com/@moonstudiossalon/shorts', '_blank', 'noopener,noreferrer');
+                }}
+                className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all"
+              >
+                <Youtube className="w-5 h-5" />
+              </button>
+
+              <button
+                onClick={() => {
+                  window.open('https://www.google.com/maps/place/Moon+Studios-The+Family+Salon-Nanoplastia+Hair+Treatment+%7C+Hydra+Medi+Facial+%7C+Olaplex+Hair+Treatment-Balayage+Hair+colour/@19.1142267,72.8875102,17z/data=!3m1!4b1!4m6!3m5!1s0x3be7c991b4c48baf:0x59444ef9221923!8m2!3d19.1142267!4d72.8875102!16s%2Fg%2F11pcdwvq61?entry=ttu&g_ep=EgoyMDI2MDQwNS4wIKXMDSoASAFQAw%3D%3D', '_blank', 'noopener,noreferrer');
+                }}
+                className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all"
+              >
+                <MapPin className="w-5 h-5" />
+              </button>
+
               <button
                 onClick={() => {
                   window.open('https://www.facebook.com/profile.php?id=61579161101740', '_blank', 'noopener,noreferrer');
