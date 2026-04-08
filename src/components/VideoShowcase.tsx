@@ -1,4 +1,4 @@
-import { Volume2, VolumeX, ChevronLeft, ChevronRight, Play, Instagram } from 'lucide-react';
+import { Volume2, VolumeX, ChevronLeft, ChevronRight, Play, Instagram, Youtube } from 'lucide-react';
 import { useCallback, useEffect, useState, useRef } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { cn } from '@/lib/utils';
@@ -10,13 +10,14 @@ interface VideoItem {
 }
 
 const videos: VideoItem[] = [
-  { id: 'kQqPJmDil40', title: 'Fresh Fade Flow', description: 'Sharp cuts that change the whole vibe.' },
-  { id: 'e_xiyPJ75G4', title: 'Colour Transformation', description: 'From dull to dazzling in one session.' },
-  { id: 'sIkMaPHcmJg', title: 'The Salon Vibes', description: 'Where good music meets great hair.' },
-  { id: 'vKog5vPy9gw', title: 'Nanoplastia Magic', description: 'Watch frizz disappear in real time.' },
-  { id: 'gMn0cAUdfrE', title: 'Balayage Glow-Up', description: 'Sun-kissed colour, zero effort after.' },
+
+  { id: 'gMn0cAUdfrE', title: 'Complete Makeover', description: 'Sun-kissed colour, zero effort after.' },
+  { id: 'v_w9hHuOthg', title: 'Hair Rescue Story', description: 'Turning hair heartbreak into a healthy, happy..' },
+  { id: 'vW7M-onjBmQ', title: 'Global Grooming', description: 'From Germany to Mumbai—world-class hair care ...' },
+  { id: 'sIkMaPHcmJg', title: 'ICWF Event Mackup', description: 'Where good music meets great hair...' },
+  { id: 'Io3uJg9J058', title: 'Sharp Fade & Finish', description: 'From a relaxing wash to a precision cut—walk' },
   { id: '5zehCF1RbLA', title: 'The Weekend Refresh', description: 'Walk in tired, walk out ready.' },
-  { id: 'Io3uJg9J058', title: 'Facial Glow', description: 'That post-facial radiance in under an hour.' },
+  { id: 'gLb8TlAVgZY', title: 'The Search is Over', description: 'Finding your "hair home" after years ...' }
 ];
 
 const VideoShowcase = () => {
@@ -326,11 +327,11 @@ const VideoShowcase = () => {
           {/* Instagram CTA */}
           <div className="flex justify-center mt-6 sm:mt-8">
             <button
-              onClick={() => window.open('https://www.instagram.com/moonstudiossalon', '_blank')}
+              onClick={() => window.open('https://www.youtube.com/@moonstudiossalon/shorts', '_blank')}
               className="group inline-flex items-center gap-2 bg-gradient-to-r from-rose-500 via-fuchsia-500 to-rose-500 text-white px-5 py-2.5 rounded-full text-sm font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
             >
-              <Instagram className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
-              <span>Follow Us on Instagram</span>
+              <Youtube className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
+              <span>Follow Us on Youtube</span>
               <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
