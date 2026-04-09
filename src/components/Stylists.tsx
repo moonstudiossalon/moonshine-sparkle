@@ -25,7 +25,7 @@ const Stylists = () => {
     description: 'Internationally experienced, sharp problem-solver, known for creative, precise cuts.',
     image: stylistShehzad
   }];
-  return <section ref={sectionRef} id="stylists" className="py-20 px-4  lg:px-8">
+  return <section ref={sectionRef} id="stylists" data-analytics-section="stylists" data-analytics-label="Stylists" data-analytics-section-view="true" className="py-20 px-4  lg:px-8">
       <div className=" max-w-4xl mx-auto ">
         <div className={`scroll-fade-up ${isVisible ? 'visible' : ''}`}>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-semibold text-foreground mb-3">

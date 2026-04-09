@@ -104,6 +104,9 @@ const SpecialtyHighlight = () => {
   return (
     <section
       id="specialty"
+      data-analytics-section="specialty"
+      data-analytics-label="Specialty Highlight"
+      data-analytics-section-view="true"
       className={`py-0 bg-primary/[0.03] overflow-hidden transition-opacity duration-700 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
       aria-label="Featured Treatments"
     >
@@ -111,6 +114,10 @@ const SpecialtyHighlight = () => {
         {/* Navigation arrows */}
         <button
           onClick={goPrev}
+          data-analytics-event="carousel_navigate"
+          data-analytics-section="specialty"
+          data-analytics-label="Previous treatment"
+          data-analytics-direction="previous"
           aria-label="Previous treatment"
           className={`absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 bg-background/90 backdrop-blur-sm rounded-full p-2.5 shadow-medium hover:bg-background transition-all cursor-pointer group scroll-fade-up ${isVisible ? 'visible' : ''}`}
           style={{ transitionDelay: '100ms' }}
@@ -119,6 +126,10 @@ const SpecialtyHighlight = () => {
         </button>
         <button
           onClick={goNext}
+          data-analytics-event="carousel_navigate"
+          data-analytics-section="specialty"
+          data-analytics-label="Next treatment"
+          data-analytics-direction="next"
           aria-label="Next treatment"
           className={`absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 bg-background/90 backdrop-blur-sm rounded-full p-2.5 shadow-medium hover:bg-background transition-all cursor-pointer group scroll-fade-up ${isVisible ? 'visible' : ''}`}
           style={{ transitionDelay: '200ms' }}
@@ -192,11 +203,11 @@ const SpecialtyHighlight = () => {
 
                 <div className={`scroll-fade-up mt-8 ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: '600ms' }}>
                   <div className="flex flex-col sm:flex-row gap-3">
-                    <Button onClick={scrollToBooking} size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 h-auto text-base rounded-full">
+                    <Button onClick={scrollToBooking} data-analytics-event="cta_click" data-analytics-section="specialty" data-analytics-label={current.cta} data-analytics-cta-type="scroll_to_booking" data-analytics-service={current.id} size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 h-auto text-base rounded-full">
                       {current.cta}
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
-                    <Button onClick={scrollToBooking} variant="outline" size="lg" className="border-primary/30 text-primary hover:bg-primary/5 px-8 py-6 h-auto text-base rounded-full">
+                    <Button onClick={scrollToBooking} data-analytics-event="cta_click" data-analytics-section="specialty" data-analytics-label="Is This Right for You?" data-analytics-cta-type="scroll_to_booking" data-analytics-service={current.id} variant="outline" size="lg" className="border-primary/30 text-primary hover:bg-primary/5 px-8 py-6 h-auto text-base rounded-full">
                       Is This Right for You?
                     </Button>
                   </div>
@@ -226,6 +237,10 @@ const SpecialtyHighlight = () => {
             <button
               key={index}
               onClick={() => goTo(index)}
+              data-analytics-event="carousel_navigate"
+              data-analytics-section="specialty"
+              data-analytics-label={specialties[index].id}
+              data-analytics-direction="direct"
               aria-label={`Show ${specialties[index].id}`}
               className={`transition-all duration-300 rounded-full border-2 cursor-pointer ${
                 index === activeIndex

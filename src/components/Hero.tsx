@@ -21,7 +21,7 @@ const Hero = () => {
       behavior: 'smooth'
     });
   };
-  return <section className="relative pt-28 sm:pt-32 pb-16 sm:pb-20 px-4  lg:px-8 overflow-hidden">
+  return <section data-analytics-section="hero" data-analytics-label="Hero" data-analytics-section-view="true" className="relative pt-28 sm:pt-32 pb-16 sm:pb-20 px-4  lg:px-8 overflow-hidden">
       {/* Subtle gradient vignette */}
       <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 via-transparent to-transparent pointer-events-none" />
 
@@ -48,17 +48,17 @@ const Hero = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-4">
-            <Button onClick={scrollToBooking} size="lg" className="bg-primary hover:bg-accent text-primary-foreground font-semibold px-8 sm:px-10 h-12 sm:h-14 text-base sm:text-lg rounded-xl shadow-medium hover:shadow-hover transition-all">
+            <Button onClick={scrollToBooking} data-analytics-event="cta_click" data-analytics-section="hero" data-analytics-label="Book Your Visit" data-analytics-cta-type="scroll_to_booking" size="lg" className="bg-primary hover:bg-accent text-primary-foreground font-semibold px-8 sm:px-10 h-12 sm:h-14 text-base sm:text-lg rounded-xl shadow-medium hover:shadow-hover transition-all">
               Book Your Visit
             </Button>
-            <Button onClick={() => navigate('/services')} variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-semibold px-8 sm:px-10 h-12 sm:h-14 text-base sm:text-lg rounded-xl">
+            <Button onClick={() => navigate('/services')} data-analytics-event="cta_click" data-analytics-section="hero" data-analytics-label="Explore Our Services" data-analytics-destination="/services" variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-semibold px-8 sm:px-10 h-12 sm:h-14 text-base sm:text-lg rounded-xl">
               Explore Our Services
             </Button>
           </div>
 
           {/* Rating badges */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm sm:text-base text-muted-foreground">
-            <a href="https://www.justdial.com/Mumbai/Moon-Studio-The-Family-Salon-_-Hair-Salon-Andheri-East/022PXX22-XX22-180915172828-M8K4_BZDET" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.justdial.com/Mumbai/Moon-Studio-The-Family-Salon-_-Hair-Salon-Andheri-East/022PXX22-XX22-180915172828-M8K4_BZDET" target="_blank" rel="noopener noreferrer" data-analytics-section="hero">
               <div className="flex items-center gap-2">
                 <Star className="w-4 h-4 text-primary fill-primary" />
                 <span className="font-medium">4.9 Rating on </span>
@@ -119,7 +119,7 @@ const Hero = () => {
             rotation: '-rotate-1'
           }].map((item, index) => <div key={index} className={`${item.rotation} hover:rotate-0 transition-all duration-300 hover:scale-105 animate-fade-up cursor-pointer`} style={{
             animationDelay: `${index * 100}ms`
-          }} onClick={scrollToGallery}>
+          }} onClick={scrollToGallery} data-analytics-event="cta_click" data-analytics-section="hero" data-analytics-label={`Hero Image ${index + 1}`} data-analytics-cta-type="scroll_to_gallery">
                 <div className="relative overflow-hidden rounded-2xl shadow-medium hover:shadow-hover aspect-[3/4] bg-card">
                   <img src={item.img} alt={`Hair transformation ${index + 1}`} className="w-full h-full object-cover" loading={index === 0 ? 'eager' : 'lazy'} />
                 </div>
@@ -127,7 +127,7 @@ const Hero = () => {
           </div>
           
           <p className="text-center mt-6 text-sm text-muted-foreground">
-            <button onClick={scrollToGallery} className="hover:text-primary transition-colors underline">
+            <button onClick={scrollToGallery} data-analytics-event="cta_click" data-analytics-section="hero" data-analytics-label="View more transformations in our gallery" data-analytics-cta-type="scroll_to_gallery" className="hover:text-primary transition-colors underline">
               View more transformations in our gallery
             </button>
           </p>

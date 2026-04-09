@@ -35,6 +35,10 @@ const FamilySalonMarolMumbai = () => {
             <div className="flex flex-wrap justify-center gap-4">
               <Button
                 onClick={() => window.location.href = 'tel:+919004832184'}
+                data-analytics-event="phone_call_click"
+                data-analytics-section="family_salon_hero"
+                data-analytics-label="Book Your Family Appointment"
+                data-analytics-service="family_salon"
                 size="lg"
                 className="bg-primary hover:bg-primary/90"
               >
@@ -199,6 +203,10 @@ const FamilySalonMarolMumbai = () => {
             <div className="flex justify-center mt-6">
               <Button
                 onClick={() => window.location.href = 'tel:+919004832184'}
+                data-analytics-event="phone_call_click"
+                data-analytics-section="family_salon_location"
+                data-analytics-label="Call for Directions or Appointment"
+                data-analytics-service="family_salon"
                 size="lg"
                 className="bg-primary hover:bg-primary/90"
               >
@@ -273,6 +281,10 @@ const FamilySalonMarolMumbai = () => {
             </p>
             <Button
               onClick={() => window.location.href = 'tel:+919004832184'}
+              data-analytics-event="phone_call_click"
+              data-analytics-section="family_salon_cta"
+              data-analytics-label="Book Family Appointment"
+              data-analytics-service="family_salon"
               size="lg"
               className="bg-white text-primary hover:bg-white/90"
             >

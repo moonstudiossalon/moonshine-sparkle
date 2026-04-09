@@ -68,6 +68,10 @@ const Header = () => {
               <button
                 key={item}
                 onClick={() => handleNavClick(item)}
+                data-analytics-event="nav_click"
+                data-analytics-section="header"
+                data-analytics-label={item}
+                data-analytics-destination={item === 'Services' ? '/services' : item.toLowerCase()}
                 className="text-sm font-medium text-foreground hover:text-primary transition-colors"
               >
                 {item}
@@ -79,6 +83,7 @@ const Header = () => {
           <div className="flex items-center gap-2 sm:gap-3">
             <a
               href="tel:+919004832184"
+              data-analytics-section="header"
               className="hidden md:flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-primary transition-colors"
             >
               <Phone className="w-4 h-4" />
@@ -86,6 +91,10 @@ const Header = () => {
             </a>
             <Button
               onClick={handleBookClick}
+              data-analytics-event="cta_click"
+              data-analytics-section="header"
+              data-analytics-label="Book Your Visit"
+              data-analytics-cta-type="scroll_to_booking"
               size="sm"
               className="bg-primary hover:bg-accent text-primary-foreground font-semibold px-5 sm:px-7 h-9 sm:h-11 text-sm sm:text-base rounded-xl shadow-soft hover:shadow-medium transition-all"
             >

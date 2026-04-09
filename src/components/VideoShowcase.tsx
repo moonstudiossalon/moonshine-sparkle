@@ -1,4 +1,4 @@
-import { Volume2, VolumeX, ChevronLeft, ChevronRight, Play, Instagram, Youtube } from 'lucide-react';
+import { Volume2, VolumeX, ChevronLeft, ChevronRight, Play, Youtube } from 'lucide-react';
 import { useCallback, useEffect, useState, useRef } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { cn } from '@/lib/utils';
@@ -151,6 +151,9 @@ const VideoShowcase = () => {
     <section
       ref={sectionRef}
       id="videos"
+      data-analytics-section="videos"
+      data-analytics-label="Video Showcase"
+      data-analytics-section-view="true"
       className="py-12 sm:py-16 lg:py-20"
     >
       <div className="container mx-auto max-w-7xl px-4 sm:px-0">
@@ -176,6 +179,10 @@ const VideoShowcase = () => {
           {/* Arrows — desktop */}
           <button
             onClick={scrollPrev}
+            data-analytics-event="video_navigate"
+            data-analytics-section="videos"
+            data-analytics-label="Previous video"
+            data-analytics-direction="previous"
             aria-label="Previous video"
             className="hidden md:flex absolute -left-16 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-card shadow-medium hover:shadow-hover items-center justify-center transition-shadow"
           >
@@ -183,6 +190,10 @@ const VideoShowcase = () => {
           </button>
           <button
             onClick={scrollNext}
+            data-analytics-event="video_navigate"
+            data-analytics-section="videos"
+            data-analytics-label="Next video"
+            data-analytics-direction="next"
             aria-label="Next video"
             className="hidden md:flex absolute -right-16 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-card shadow-medium hover:shadow-hover items-center justify-center transition-shadow"
           >
@@ -192,6 +203,10 @@ const VideoShowcase = () => {
           {/* Mobile arrows — left & right */}
           <button
             onClick={scrollPrev}
+            data-analytics-event="video_navigate"
+            data-analytics-section="videos"
+            data-analytics-label="Previous video"
+            data-analytics-direction="previous"
             aria-label="Previous video"
             className="md:hidden absolute left-1 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-card/90 backdrop-blur shadow-md hover:shadow-lg flex items-center justify-center active:scale-95 transition-all"
           >
@@ -199,6 +214,10 @@ const VideoShowcase = () => {
           </button>
           <button
             onClick={scrollNext}
+            data-analytics-event="video_navigate"
+            data-analytics-section="videos"
+            data-analytics-label="Next video"
+            data-analytics-direction="next"
             aria-label="Next video"
             className="md:hidden absolute right-1 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-card/90 backdrop-blur shadow-md hover:shadow-lg flex items-center justify-center active:scale-95 transition-all"
           >
@@ -313,6 +332,10 @@ const VideoShowcase = () => {
               <button
                 key={index}
                 onClick={() => emblaApi?.scrollTo(index)}
+                data-analytics-event="video_navigate"
+                data-analytics-section="videos"
+                data-analytics-label={`Video ${index + 1}`}
+                data-analytics-direction="direct"
                 aria-label={`Go to video ${index + 1}`}
                 className={cn(
                   'h-2 rounded-full transition-all duration-300 cursor-pointer',
@@ -328,6 +351,11 @@ const VideoShowcase = () => {
           <div className="flex justify-center mt-6 sm:mt-8">
             <button
               onClick={() => window.open('https://www.youtube.com/@moonstudiossalon/shorts', '_blank')}
+              data-analytics-event="outbound_click"
+              data-analytics-section="videos"
+              data-analytics-label="Follow Us on Youtube"
+              data-analytics-platform="youtube"
+              data-analytics-destination="https://www.youtube.com/@moonstudiossalon/shorts"
               className="group inline-flex items-center gap-2 bg-gradient-to-r from-rose-500 via-fuchsia-500 to-rose-500 text-white px-5 py-2.5 rounded-full text-sm font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
             >
               <Youtube className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />

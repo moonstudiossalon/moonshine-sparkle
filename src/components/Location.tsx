@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { MapPin, Clock, CreditCard, Phone, Mail } from 'lucide-react';
+import { MapPin, Clock, CreditCard, Phone } from 'lucide-react';
 import { Button } from './ui/button';
 const Location = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -14,7 +14,7 @@ const Location = () => {
     return () => observer.disconnect();
   }, []);
   const mapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.8501965309724!2d72.88492991149732!3d19.114226682023627!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c991b4c48baf%3A0x59444ef9221923!2sMoon%20Studios-The%20Family%20Salon-Nanoplastia%20Hair%20Treatment%20%7C%20Hydra%20Medi%20Facial%20%7C%20Olaplex%20Hair%20Treatment-Balayage%20Hair%20colour!5e0!3m2!1sen!2sin!4v1761295422766!5m2!1sen!2sin";
-  return <section ref={sectionRef} id="contact" className="py-20 px-4  lg:px-8">
+  return <section ref={sectionRef} id="contact" data-analytics-section="contact" data-analytics-label="Location and Contact" data-analytics-section-view="true" className="py-20 px-4  lg:px-8">
       <div className="container mx-auto max-w-7xl px-0">
         <div className={`scroll-fade-up ${isVisible ? 'visible' : ''}`}>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-semibold text-foreground">
@@ -33,6 +33,10 @@ const Location = () => {
                 const url = 'https://maps.app.goo.gl/YqntQGMKfKekQMN69';
                 window.open(url, '_blank', 'noopener,noreferrer');
               }}
+              data-analytics-event="map_open"
+              data-analytics-section="contact"
+              data-analytics-label="Map Overlay"
+              data-analytics-platform="google_maps"
               className="absolute inset-0 flex items-center justify-center bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             >
               <div className="text-center">
@@ -84,7 +88,7 @@ const Location = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground mb-2">Contact</h3>
-                  <a href="tel:+919004832184" className="text-primary hover:text-accent transition-colors">
+                  <a href="tel:+919004832184" data-analytics-section="contact" className="text-primary hover:text-accent transition-colors">
                     +91 90048 32184
                   </a>
                 </div>
@@ -111,6 +115,10 @@ const Location = () => {
                   const url = 'https://www.google.com/maps/search/?api=1&query=Moon+Studio+Andheri+East+Mumbai';
                   window.open(url, '_blank', 'noopener,noreferrer');
                 }} 
+                data-analytics-event="map_open"
+                data-analytics-section="contact"
+                data-analytics-label="Get Directions"
+                data-analytics-platform="google_maps"
                 size="lg" 
                 className="flex-1 bg-primary hover:bg-accent text-primary-foreground font-semibold px-6 sm:px-8 h-11 sm:h-14 text-sm sm:text-lg rounded-xl shadow-medium hover:shadow-hover transition-all py-[10px]"
               >
@@ -118,7 +126,7 @@ const Location = () => {
                 Get Directions
               </Button>
               
-              <Button onClick={() => window.location.href = 'tel:+919004832184'} variant="outline" size="lg" className="flex-1 border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-semibold px-6 sm:px-8 h-11 sm:h-14 text-sm sm:text-lg rounded-xl transition-all py-[10px]">
+              <Button onClick={() => window.location.href = 'tel:+919004832184'} data-analytics-event="phone_call_click" data-analytics-section="contact" data-analytics-label="Call Now" data-analytics-destination="tel:+919004832184" variant="outline" size="lg" className="flex-1 border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-semibold px-6 sm:px-8 h-11 sm:h-14 text-sm sm:text-lg rounded-xl transition-all py-[10px]">
                 <Phone className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                 Call Now
               </Button>

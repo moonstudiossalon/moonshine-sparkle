@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Star, ExternalLink, MapPin } from 'lucide-react';
+import { Star, MapPin } from 'lucide-react';
 import { Button } from './ui/button';
 const ClientReviews = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -38,6 +38,9 @@ const ClientReviews = () => {
   return <section
     ref={sectionRef}
     id="reviews"
+    data-analytics-section="reviews"
+    data-analytics-label="Client Reviews"
+    data-analytics-section-view="true"
     className="py-20 px-4  lg:px-8 bg-secondary/20"
   >
       <div className="container mx-auto max-w-6xl px-0">
@@ -79,12 +82,16 @@ const ClientReviews = () => {
 
         <div className={`text-center space-y-4 scroll-fade-up ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: '500ms' }}>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground inline-flex items-center gap-2" onClick={() => window.open('https://maps.app.goo.gl/2UPypwux2XpX57jE6', '_blank')}>
+            <Button variant="outline" size="lg" data-analytics-event="review_engagement" data-analytics-section="reviews" data-analytics-label="View All Reviews" data-analytics-platform="google_maps" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground inline-flex items-center gap-2" onClick={() => window.open('https://maps.app.goo.gl/2UPypwux2XpX57jE6', '_blank')}>
               <MapPin className="w-5 h-5" />
               View All Reviews
             </Button>
             <Button 
               size="lg" 
+              data-analytics-event="cta_click"
+              data-analytics-section="reviews"
+              data-analytics-label="Book Your Appointment"
+              data-analytics-cta-type="scroll_to_booking"
               className="bg-primary hover:bg-accent text-primary-foreground font-semibold"
               onClick={() => {
                 const element = document.getElementById('booking');
@@ -102,6 +109,10 @@ const ClientReviews = () => {
                 const element = document.getElementById('gallery');
                 element?.scrollIntoView({ behavior: 'smooth' });
               }}
+              data-analytics-event="cta_click"
+              data-analytics-section="reviews"
+              data-analytics-label="See their transformations"
+              data-analytics-cta-type="scroll_to_gallery"
               className="text-primary hover:text-accent font-semibold underline transition-colors"
             >
               See their transformations

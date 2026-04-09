@@ -57,6 +57,9 @@ const PreferredBy = () => {
   }];
   return <section
     ref={ref as React.RefObject<HTMLElement>}
+    data-analytics-section="preferred_by"
+    data-analytics-label="Preferred By"
+    data-analytics-section-view="true"
     className="py-16 px-4  lg:px-8 bg-primary/5"
   >
       <div className="container mx-auto max-w-7xl">
@@ -80,6 +83,11 @@ const PreferredBy = () => {
                     onClick={() => {
                       window.open(client.url, '_blank', 'noopener,noreferrer');
                     }}
+                    data-analytics-event="outbound_click"
+                    data-analytics-section="preferred_by"
+                    data-analytics-label={client.name}
+                    data-analytics-platform={client.url.includes('instagram.com') ? 'instagram' : 'google_profile'}
+                    data-analytics-destination={client.url}
                     className="w-full text-left"
                   >
                     <div className="w-24 h-24 rounded-full overflow-hidden mb-4 mx-auto border-4 border-primary/20">

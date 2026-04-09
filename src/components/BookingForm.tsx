@@ -1,6 +1,7 @@
 import { Phone } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import { trackEvent } from '@/lib/analytics';
 import { Button } from './ui/button';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -17,6 +18,7 @@ const BookingForm = () => {
     return () => observer.disconnect();
   }, []);
   const { toast } = useToast();
+  const [hasStartedForm, setHasStartedForm] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     problem: '',
@@ -24,13 +26,27 @@ const BookingForm = () => {
     time: ''
   });
 
-  const services = ['Nanoplastia Hair Treatment', 'Olaplex Hair Treatment', 'Hair Coloring with Highlights/Balayage', 'Hydra Facial & Korean Glass Facial', 'Hair Smoothening & Advanced Hair Cut', 'Other Services'];
-
   const timeSlots = ['9:30 AM', '10:30 AM', '11:30 AM', '12:30 PM', '1:30 PM', '2:30 PM', '3:30 PM', '4:30 PM', '5:30 PM', '6:30 PM', '7:30 PM', '8:30 PM'];
+
+  const handleFormStart = () => {
+    if (hasStartedForm) return;
+    setHasStartedForm(true);
+    trackEvent('booking_form_start', {
+      section_name: 'booking',
+      booking_method: 'whatsapp',
+    });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.problem || !formData.date || !formData.time) {
+      trackEvent('booking_validation_error', {
+        section_name: 'booking',
+        missing_name: !formData.name,
+        missing_problem: !formData.problem,
+        missing_date: !formData.date,
+        missing_time: !formData.time,
+      });
       toast({
         title: "Please fill all fields",
         description: "Name, problem, date, and time are required.",
@@ -41,6 +57,14 @@ const BookingForm = () => {
 
     const message = `Hi! I'd like to book an appointment:\n\nName: ${formData.name}\nProblem: ${formData.problem}\nDate: ${formData.date}\nTime: ${formData.time}`;
     const whatsappUrl = `https://wa.me/919004832184?text=${encodeURIComponent(message)}`;
+    trackEvent('booking_start', {
+      section_name: 'booking',
+      booking_method: 'whatsapp',
+      preferred_date: formData.date,
+      preferred_time: formData.time,
+      problem_length: formData.problem.trim().length,
+      destination_url: whatsappUrl,
+    });
     window.open(whatsappUrl, '_blank');
     toast({
       title: "Redirecting to WhatsApp",
@@ -49,11 +73,24 @@ const BookingForm = () => {
   };
 
   const handleCall = () => {
+    trackEvent('phone_call_click', {
+      section_name: 'booking',
+      contact_method: 'phone',
+      cta_label: 'Call Us',
+      destination_url: 'tel:+919004832184',
+    });
     window.location.href = 'tel:+919004832184';
   };
 
   return (
-    <section id="booking" ref={sectionRef} className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden relative">
+    <section
+      id="booking"
+      ref={sectionRef}
+      data-analytics-section="booking"
+      data-analytics-label="Booking Form"
+      data-analytics-section-view="true"
+      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden relative"
+    >
       {/* Warm background */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-accent/5 to-primary/10 pointer-events-none" />
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
@@ -101,6 +138,7 @@ const BookingForm = () => {
                     type="text"
                     id="name"
                     value={formData.name}
+                    onFocus={handleFormStart}
                     onChange={e => setFormData({ ...formData, name: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl border border-border/70 bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-sm sm:text-base"
                     placeholder="Enter your name"
@@ -115,6 +153,7 @@ const BookingForm = () => {
                   <Textarea
                     id="problem"
                     value={formData.problem}
+                    onFocus={handleFormStart}
                     onChange={e => setFormData({ ...formData, problem: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl border border-border/70 bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-sm sm:text-base min-h-[80px] resize-none"
                     placeholder="Describe your hair or skin concerns..."
@@ -131,6 +170,7 @@ const BookingForm = () => {
                       type="date"
                       id="date"
                       value={formData.date}
+                      onFocus={handleFormStart}
                       onChange={e => setFormData({ ...formData, date: e.target.value })}
                       min={new Date().toISOString().split('T')[0]}
                       className="w-full px-4 py-3 rounded-xl border border-border/70 bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-sm sm:text-base"
@@ -145,6 +185,7 @@ const BookingForm = () => {
                     <select
                       id="time"
                       value={formData.time}
+                      onFocus={handleFormStart}
                       onChange={e => setFormData({ ...formData, time: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl border border-border/70 bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-sm sm:text-base"
                       required
@@ -161,6 +202,10 @@ const BookingForm = () => {
                   <Button
                     type="submit"
                     size="lg"
+                    data-analytics-event="booking_cta_click"
+                    data-analytics-section="booking"
+                    data-analytics-label="Book on WhatsApp"
+                    data-analytics-booking-method="whatsapp"
                     className="flex-1 bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary text-primary-foreground font-semibold px-6 h-12 sm:h-14 text-base sm:text-lg rounded-xl shadow-medium hover:shadow-hover transition-all duration-300"
                   >
                     Book on WhatsApp
@@ -169,6 +214,10 @@ const BookingForm = () => {
                   <Button
                     type="button"
                     onClick={handleCall}
+                    data-analytics-event="cta_click"
+                    data-analytics-section="booking"
+                    data-analytics-label="Call Us"
+                    data-analytics-cta-type="phone"
                     variant="outline"
                     size="lg"
                     className="flex-1 border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-semibold px-6 h-12 sm:h-14 text-base sm:text-lg rounded-xl transition-all"

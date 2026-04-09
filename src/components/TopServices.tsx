@@ -47,6 +47,9 @@ const TopServices = () => {
   return <section
     ref={sectionRef}
     id="services"
+    data-analytics-section="top_services"
+    data-analytics-label="Top Services"
+    data-analytics-section-view="true"
     className="py-20 px-4 lg:px-8"
   >
       <div className="container max-w-7xl mx-auto px-0">
@@ -107,7 +110,7 @@ const TopServices = () => {
         </div>
 
         <div className={`text-center scroll-fade-up ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: '480ms' }}>
-          <Button onClick={() => navigate('/services')} variant="outline" size="lg" className="mt-4 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+          <Button onClick={() => navigate('/services')} data-analytics-event="cta_click" data-analytics-section="top_services" data-analytics-label="View All Services" data-analytics-destination="/services" variant="outline" size="lg" className="mt-4 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
             View All Services
           </Button>
         </div>

@@ -29,6 +29,9 @@ const WhyChooseUs = () => {
   }];
   return <section
     ref={sectionRef}
+    data-analytics-section="why_choose_us"
+    data-analytics-label="Why Choose Us"
+    data-analytics-section-view="true"
     className="py-20 px-4  lg:px-8 bg-secondary/20"
   >
       <div className="container mx-auto max-w-7xl px-0">
@@ -65,7 +68,7 @@ const WhyChooseUs = () => {
           element?.scrollIntoView({
             behavior: 'smooth'
           });
-        }} size="lg" className="bg-primary hover:bg-accent text-primary-foreground font-semibold px-8 py-6 text-lg rounded-xl shadow-medium hover:shadow-hover transition-all">
+        }} data-analytics-event="cta_click" data-analytics-section="why_choose_us" data-analytics-label="Schedule Your Consultation" data-analytics-cta-type="scroll_to_booking" size="lg" className="bg-primary hover:bg-accent text-primary-foreground font-semibold px-8 py-6 text-lg rounded-xl shadow-medium hover:shadow-hover transition-all">
             Schedule Your Consultation
           </Button>
           
@@ -76,6 +79,10 @@ const WhyChooseUs = () => {
                 const element = document.getElementById('stylists');
                 element?.scrollIntoView({ behavior: 'smooth' });
               }}
+              data-analytics-event="cta_click"
+              data-analytics-section="why_choose_us"
+              data-analytics-label="Meet our expert stylists"
+              data-analytics-cta-type="scroll_to_stylists"
               className="text-primary hover:text-accent font-semibold underline transition-colors"
             >
               Meet our expert stylists

@@ -74,7 +74,7 @@ const Gallery = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="gallery" className="py-20 px-4  lg:px-8 bg-secondary/20">
+    <section ref={sectionRef} id="gallery" data-analytics-section="gallery" data-analytics-label="Gallery" data-analytics-section-view="true" className="py-20 px-4  lg:px-8 bg-secondary/20">
       <div className="container max-w-7xl mx-auto px-0">
         <div className={`scroll-fade-up ${isVisible ? 'visible' : ''}`}>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-semibold text-foreground mb-3">
@@ -114,7 +114,7 @@ const Gallery = () => {
         </div>
 
         <div className={`text-center mt-10 scroll-fade-up ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: '500ms' }}>
-          <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground inline-flex items-center gap-2" onClick={() => window.open('https://www.instagram.com/moonstudiossalon', '_blank')}>
+          <Button variant="outline" size="lg" data-analytics-event="outbound_click" data-analytics-section="gallery" data-analytics-label="See More" data-analytics-platform="instagram" data-analytics-destination="https://www.instagram.com/moonstudiossalon" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground inline-flex items-center gap-2" onClick={() => window.open('https://www.instagram.com/moonstudiossalon', '_blank')}>
             <Instagram className="w-5 h-5" />
             See More
           </Button>

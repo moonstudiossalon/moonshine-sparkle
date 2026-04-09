@@ -35,6 +35,10 @@ const BalayageSalonAndheri = () => {
             <div className="flex flex-wrap justify-center gap-4">
               <Button
                 onClick={() => window.location.href = 'tel:+919004832184'}
+                data-analytics-event="phone_call_click"
+                data-analytics-section="balayage_hero"
+                data-analytics-label="Book Your Balayage Consultation"
+                data-analytics-service="balayage"
                 size="lg"
                 className="bg-primary hover:bg-primary/90"
               >
@@ -189,6 +193,10 @@ const BalayageSalonAndheri = () => {
             </p>
             <Button
               onClick={() => window.location.href = 'tel:+919004832184'}
+              data-analytics-event="phone_call_click"
+              data-analytics-section="balayage_cta"
+              data-analytics-label="Book Your Balayage Consultation"
+              data-analytics-service="balayage"
               size="lg"
               className="bg-white text-primary hover:bg-white/90"
             >

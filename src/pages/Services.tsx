@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StructuredData from '@/components/StructuredData';
+import { trackEvent } from '@/lib/analytics';
 import serviceNanoplastia from '@/assets/service-nanoplastia.jpg';
 import serviceColoring from '@/assets/service-coloring.jpg';
 import serviceOlaplex from '@/assets/service-olaplex.jpg';
@@ -59,7 +60,7 @@ type ServiceCategory = {
   color: string;
 };
 
-const Categories = ({ categories, activeCategory, scrollToCategory }: { categories: ServiceCategory[], activeCategory: string, scrollToCategory: (id: string) => void }) => (
+const Categories = ({ categories, activeCategory, scrollToCategory }: { categories: ServiceCategory[], activeCategory: string, scrollToCategory: (category: ServiceCategory) => void }) => (
   <section className="sticky top-16 z-40 bg-background/95 backdrop-blur-sm border-b shadow-sm">
     <div className="container mx-auto px-4 max-w-7xl py-3">
       <div className="flex overflow-x-auto gap-2 pb-2 md:gap-3 md:pb-0 md:justify-center scrollbar-hide">
@@ -68,7 +69,7 @@ const Categories = ({ categories, activeCategory, scrollToCategory }: { categori
           return (
             <button
               key={category.id}
-              onClick={() => scrollToCategory(category.id)}
+              onClick={() => scrollToCategory(category)}
               className={cn(
                 'flex items-center gap-2 px-4 md:px-5 py-2.5 rounded-full whitespace-nowrap transition-all duration-200 cursor-pointer min-w-max',
                 'min-h-[44px]',
@@ -96,9 +97,14 @@ const Services = () => {
     document.title = 'Services — Moon Studios | Hair, Beauty & Spa in Andheri East';
   }, []);
 
-  const scrollToCategory = useCallback((categoryId: string) => {
-    setActiveCategory(categoryId);
-    const element = document.getElementById(categoryId);
+  const scrollToCategory = useCallback((category: ServiceCategory) => {
+    setActiveCategory(category.id);
+    trackEvent('service_category_select', {
+      section_name: 'services_navigation',
+      service_category: category.id,
+      category_title: category.title,
+    });
+    const element = document.getElementById(category.id);
     if (element) {
       const offset = 140;
       const elementPosition = element.getBoundingClientRect().top;
@@ -107,7 +113,11 @@ const Services = () => {
     }
   }, []);
 
-  const handleCallClick = useCallback(() => {
+  const handleCallClick = useCallback((params?: Record<string, string>) => {
+    trackEvent('phone_call_click', {
+      contact_method: 'phone',
+      ...params,
+    });
     window.location.href = 'tel:+919004832184';
   }, []);
 
@@ -249,11 +259,11 @@ const Services = () => {
               Haircuts, facials, waxing, massage, and grooming — over 70 services, all done with genuine care.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
-              <Button onClick={handleCallClick} size="lg" className="bg-primary hover:bg-primary/90 rounded-full px-8">
+              <Button onClick={() => handleCallClick({ section_name: 'services_hero', cta_label: 'Call Now' })} data-analytics-event="cta_click" data-analytics-section="services_hero" data-analytics-label="Call Now" data-analytics-cta-type="phone" size="lg" className="bg-primary hover:bg-primary/90 rounded-full px-8">
                 <Phone className="w-5 h-5 mr-2" />
                 Call Now
               </Button>
-              <Button onClick={() => navigate('/')} variant="outline" size="lg" className="rounded-full px-8">
+              <Button onClick={() => navigate('/')} data-analytics-event="cta_click" data-analytics-section="services_hero" data-analytics-label="Back to Home" data-analytics-destination="/" variant="outline" size="lg" className="rounded-full px-8">
                 Back to Home
               </Button>
             </div>
@@ -293,6 +303,10 @@ const Services = () => {
                   variant="outline"
                   size="sm"
                   onClick={() => navigate('/')}
+                  data-analytics-event="cta_click"
+                  data-analytics-section="services_spotlight"
+                  data-analytics-label="Book a Free Consultation"
+                  data-analytics-destination="/"
                   className="border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-full"
                 >
                   Book a Free Consultation <span className="ml-1.5">→</span>
@@ -368,7 +382,17 @@ const Services = () => {
                           {service.description}
                         </p>
                         <Button
-                          onClick={handleCallClick}
+                          onClick={() => handleCallClick({
+                            section_name: 'service_card',
+                            cta_label: 'Call to Book',
+                            service_name: service.name,
+                            service_category: category.id,
+                          })}
+                          data-analytics-event="service_interest"
+                          data-analytics-section="services_list"
+                          data-analytics-label={service.name}
+                          data-analytics-service={service.name}
+                          data-analytics-category={category.id}
                           variant="outline"
                           size="sm"
                           className="w-full border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground rounded-full"
@@ -394,7 +418,7 @@ const Services = () => {
             <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
               We don't require advance payment, we reschedule if life gets busy, and we always start with a free consultation. Just show up — we'll handle the rest.
             </p>
-            <Button onClick={handleCallClick} size="lg" className="bg-primary hover:bg-primary/90 text-lg px-12 py-6 h-auto rounded-full">
+            <Button onClick={() => handleCallClick({ section_name: 'services_cta', cta_label: 'Call Now' })} data-analytics-event="cta_click" data-analytics-section="services_cta" data-analytics-label="Call Now" data-analytics-cta-type="phone" size="lg" className="bg-primary hover:bg-primary/90 text-lg px-12 py-6 h-auto rounded-full">
               <Phone className="w-5 h-5 mr-2" />
               Call Now
             </Button>
@@ -403,7 +427,11 @@ const Services = () => {
 
         {/* Floating Call Button — mobile only */}
         <Button
-          onClick={handleCallClick}
+          onClick={() => handleCallClick({ section_name: 'services_floating_cta', cta_label: 'Call Now' })}
+          data-analytics-event="cta_click"
+          data-analytics-section="services_floating_cta"
+          data-analytics-label="Call Now"
+          data-analytics-cta-type="phone"
           className="fixed bottom-6 right-6 z-50 rounded-full h-14 w-14 md:h-auto md:w-auto md:px-6 md:rounded-full shadow-2xl bg-primary hover:bg-primary/90 hover:scale-105 transition-transform cursor-pointer"
           size="lg"
           aria-label="Call Moon Studios"
