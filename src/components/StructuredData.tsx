@@ -7,7 +7,7 @@ const StructuredData = () => {
       "@type": "HairSalon",
       "name": "Moon Studios – The Family Salon",
       "url": "https://moonstudiossalon.in/",
-      "description": "Top-rated family hair salon in Andheri East, Mumbai. Haircuts, Nanoplastia, Balayage, Olaplex & facials. Open all days.",
+      "description": "Warm, family-friendly salon in Andheri East and Marol, Mumbai. Haircuts, Nanoplastia, Balayage, Hydra Medi Facial, Olaplex, facials, and grooming for women, men, and kids.",
       "image": "https://moonstudiossalon.in/og-image.jpg",
       "telephone": "+919004832184",
       "address": {
@@ -35,7 +35,9 @@ const StructuredData = () => {
       "paymentAccepted": "Cash, Credit Card, Debit Card, UPI",
       "currenciesAccepted": "INR",
       "sameAs": [
-        "https://maps.app.goo.gl/YqntQGMKfKekQMN69"
+        "https://maps.app.goo.gl/YqntQGMKfKekQMN69",
+        "https://www.instagram.com/moonstudiossalon/",
+        "https://www.facebook.com/people/Moon-Studios-The-Family-Salon/61579161101740/"
       ],
       "aggregateRating": {
         "@type": "AggregateRating",
@@ -90,15 +92,36 @@ const StructuredData = () => {
           }
         ]
       },
-      "areaServed": {
-        "@type": "Place",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Andheri East, Marol, Mumbai",
-          "addressRegion": "Maharashtra",
-          "addressCountry": "IN"
+      "areaServed": [
+        {
+          "@type": "Place",
+          "name": "Andheri East"
+        },
+        {
+          "@type": "Place",
+          "name": "Marol"
+        },
+        {
+          "@type": "Place",
+          "name": "Chakala"
+        },
+        {
+          "@type": "Place",
+          "name": "Powai"
+        },
+        {
+          "@type": "Place",
+          "name": "Saki Naka"
+        },
+        {
+          "@type": "Place",
+          "name": "Ghatkopar"
+        },
+        {
+          "@type": "Place",
+          "name": "Kurla"
         }
-      }
+      ]
     };
 
     const servicesSchema = [

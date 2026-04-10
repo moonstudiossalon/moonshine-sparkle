@@ -56,9 +56,12 @@ const Location = () => {
                 <div>
                   <h3 className="font-semibold text-foreground mb-2">Address</h3>
                   <p className="text-muted-foreground text-base font-normal">
-                     Moon Studios(The Family Salon) <br /> 
+                     Moon Studios (The Family Salon) <br />
                      Shop C13, Harmony Apartments Krishanlal Marwah Marg <br />
                      Ashok Nagar, Andheri East, Mumbai, Maharashtra 400072
+                  </p>
+                  <p className="text-sm text-muted-foreground mt-3">
+                    Easy to reach from Marol, Chakala, Saki Naka, Powai, Ghatkopar, and Kurla.
                   </p>
                 </div>
               </div>

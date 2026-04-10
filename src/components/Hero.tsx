@@ -31,19 +31,24 @@ const Hero = () => {
             Your Neighbourhood<br />Family Salon
           </h1>
 
+          <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
+            Haircuts, Balayage, Nanoplastia, Hydra Medi Facial, Olaplex, and grooming for women, men, and kids in a
+            salon known for warmth, hygiene, and honest consultation.
+          </p>
+
           {/* Trust badges */}
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mb-6 sm:mb-8 text-sm sm:text-base text-muted-foreground px-0">
             <div className="flex items-center gap-2">
               <Shield className="w-5 h-5 text-primary" />
-              <span className="font-medium">Certified stylists</span>
+              <span className="font-medium">Warm, hygiene-first care</span>
             </div>
             <div className="flex items-center gap-2">
               <Users className="w-5 h-5 text-primary" />
-              <span className="font-medium">5000+ happy clients</span>
+              <span className="font-medium">Women, men and kids welcome</span>
             </div>
             <div className="flex items-center gap-2">
               <Star className="w-5 h-5 text-primary fill-primary" />
-              <span className="font-medium">Hygiene-first</span>
+              <span className="font-medium">545+ Google reviews</span>
             </div>
           </div>
 

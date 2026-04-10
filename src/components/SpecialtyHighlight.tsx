@@ -254,7 +254,7 @@ const SpecialtyHighlight = () => {
         {/* Auto-slide progress */}
         <div className={`h-1 bg-muted/10 scroll-fade-up ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: '500ms' }}>
           <div
-            className="h-full bg-primary/30 transition-all duration-[8000ms] ease-linear"
+            className="h-full bg-primary/30 transition-all [transition-duration:8000ms] ease-linear"
             key={activeIndex}
             style={{ width: '100%' }}
           />

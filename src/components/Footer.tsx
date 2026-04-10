@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { Instagram, Facebook, PhoneOutgoing, Flower, Youtube, MapPin } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 const Footer = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const location = useLocation();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -13,22 +15,49 @@ const Footer = () => {
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    element?.scrollIntoView({ behavior: 'smooth' });
+  const quickLinks = [
+    { label: 'Services', target: 'services' },
+    { label: 'Reviews', target: 'reviews' },
+    { label: 'Stylists', target: 'stylists' },
+    { label: 'Gallery', target: 'gallery' },
+    { label: 'Contact', target: 'contact' },
+  ];
+
+  const moreLinks = [
+    { label: 'Best Salon in Andheri East', href: '/best-salon-andheri-east' },
+    { label: 'Family Salon in Marol', href: '/family-salon-marol-mumbai' },
+    { label: 'Nanoplastia Hair Treatment', href: '/nanoplastia-andheri-east' },
+    { label: 'Balayage Hair Colour', href: '/balayage-salon-andheri' },
+    { label: 'Hydra Medi Facial', href: '/hydra-medi-facial-andheri-east' },
+    { label: 'Olaplex Hair Treatment', href: '/olaplex-hair-treatment-andheri-east' },
+    { label: 'Manicure and Pedicure', href: '/manicure-pedicure-mumbai' },
+    { label: 'Salon Near Powai', href: '/salon-near-powai' },
+    { label: 'Salon Near Ghatkopar', href: '/salon-near-ghatkopar' },
+    { label: 'Salon Near Kurla', href: '/salon-near-kurla' },
+  ];
+
+  const openSection = (id: string) => {
+    if (location.pathname === '/') {
+      const element = document.getElementById(id);
+      element?.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    window.location.href = `/#${id}`;
   };
 
   return (
     <footer ref={sectionRef} data-analytics-section="footer" data-analytics-label="Footer" data-analytics-section-view="true" className={`bg-secondary/30 py-12 px-4  lg:px-8 border-t border-border scroll-fade-up ${isVisible ? 'visible' : ''}`}>
       <div className="container mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
           <div>
             <h3 className="text-2xl font-playfair font-bold text-foreground mb-3">
               Moon Studios
             </h3>
-            <p className="text-muted-foreground text-sm">
-              Your trusted hair care partner in Andheri East. Precision cuts. Personal care.
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              A warm, family-friendly salon in Andheri East and Marol for women, men, and kids. Known for expert
+              hair, skin, and grooming services with thoughtful consultation and care.
             </p>
           </div>
 
@@ -36,18 +65,34 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-foreground mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              {['Services', 'Reviews', 'Stylists', 'Gallery', 'Contact'].map((item) => (
-                <li key={item}>
+              {quickLinks.map((item) => (
+                <li key={item.label}>
                   <button
-                    onClick={() => scrollToSection(item.toLowerCase())}
+                    onClick={() => openSection(item.target)}
                     data-analytics-event="nav_click"
                     data-analytics-section="footer"
-                    data-analytics-label={item}
-                    data-analytics-destination={item.toLowerCase()}
+                    data-analytics-label={item.label}
+                    data-analytics-destination={item.target}
                     className="text-muted-foreground hover:text-primary transition-colors text-sm"
                   >
-                    {item}
+                    {item.label}
                   </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold text-foreground mb-4">More at Moon Studios</h4>
+            <ul className="space-y-2">
+              {moreLinks.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    to={item.href}
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                  >
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>
