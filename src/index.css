@@ -37,7 +37,14 @@ All colors MUST be HSL.
     --ring: 7 65% 62%;
 
     --radius: 1rem;
-    
+
+    /* Offer promo palette — deliberately distinct from the warm coral primary
+       so the Happy Hour surfaces read as a promo, not as site chrome. */
+    --offer-bg: 160 43% 11%;
+    --offer-bg2: 158 38% 17%;
+    --offer-gold: 40 58% 55%;
+    --offer-cream: 40 42% 93%;
+
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --shadow-soft: 0 2px 8px -2px hsl(0 0% 0% / 0.1);
     --shadow-medium: 0 4px 16px -4px hsl(0 0% 0% / 0.15);

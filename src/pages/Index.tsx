@@ -14,6 +14,8 @@ import BookingForm from '@/components/BookingForm';
 import Location from '@/components/Location';
 import Footer from '@/components/Footer';
 import StructuredData from '@/components/StructuredData';
+import OfferBanner from '@/components/offers/OfferBanner';
+import OfferStrip from '@/components/offers/OfferStrip';
 
 const Index = () => {
   useSEO({
@@ -27,6 +29,7 @@ const Index = () => {
       <StructuredData />
       <Header />
       <Hero />
+      <OfferBanner />
       <PreferredBy />
       <TopServices />
       <SpecialtyHighlight />
@@ -35,6 +38,7 @@ const Index = () => {
       <VideoShowcase />
       <Gallery />
       <Stylists />
+      <OfferStrip label="Booking Mon–Thu? Come between 12 and 5 PM and your second service is free." />
       <BookingForm />
       <Location />
       <Footer />

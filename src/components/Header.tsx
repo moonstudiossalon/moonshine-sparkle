@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from './ui/button';
 import { Phone } from 'lucide-react';
 import { Icon } from './Icon';
+import OfferBar from './offers/OfferBar';
 import { trackEvent } from '@/lib/analytics';
 
 const Header: React.FC = () => {
@@ -21,6 +22,8 @@ const Header: React.FC = () => {
   const handleNavClick = (item: string) => {
     if (item === 'Services') {
       navigate('/services');
+    } else if (item === 'Offers') {
+      navigate('/offers');
     } else if (location.pathname !== '/') {
       navigate('/', { state: { scrollTo: item.toLowerCase() } });
     } else {
@@ -83,14 +86,18 @@ const Header: React.FC = () => {
             </Link>
 
             <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
-              {['Services', 'Process', 'Reviews', 'Gallery', 'Contact'].map((item) => (
+              {['Services', 'Offers', 'Process', 'Reviews', 'Gallery', 'Contact'].map((item) => (
                 <button
                   key={item}
                   onClick={() => handleNavClick(item)}
                   data-analytics-event="nav_click"
                   data-analytics-section="header"
                   data-analytics-label={item}
-                  data-analytics-destination={item === 'Services' ? '/services' : item.toLowerCase()}
+                  data-analytics-destination={
+                    item === 'Services' || item === 'Offers'
+                      ? `/${item.toLowerCase()}`
+                      : item.toLowerCase()
+                  }
                   className="text-sm font-medium text-foreground hover:text-primary transition-colors cursor-pointer"
                 >
                   {item}
@@ -142,21 +149,28 @@ const Header: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Offer bar rides inside the already-fixed header so it always sits
+            directly under the nav. Hero's pt-32 clears both. */}
+        <OfferBar />
       </header>
 
-      {/* PROTOTYPE MOBILE HEADER */}
-      <header className="block md:hidden mhead">
-        <Link to="/" className="logo">
-          Moon Studios
-          <small>The Family Salon</small>
-        </Link>
-        <button className="headcall" onClick={handleCall} aria-label="Call now">
-          <span style={{ width: 14, height: 14, display: 'inline-flex' }}>
-            <Icon name="phone" />
-          </span>
-          Call
-        </button>
-      </header>
+      {/* PROTOTYPE MOBILE HEADER — header + offer bar stick together */}
+      <div className="topstack block md:hidden">
+        <header className="mhead">
+          <Link to="/" className="logo">
+            Moon Studios
+            <small>The Family Salon</small>
+          </Link>
+          <button className="headcall" onClick={handleCall} aria-label="Call now">
+            <span style={{ width: 14, height: 14, display: 'inline-flex' }}>
+              <Icon name="phone" />
+            </span>
+            Call
+          </button>
+        </header>
+        <OfferBar />
+      </div>
 
       {/* PROTOTYPE MOBILE SEG TAB — Home | All Services */}
       <div className="seg md:hidden" role="tablist" style={{ marginTop: 10 }}>
@@ -170,6 +184,17 @@ const Header: React.FC = () => {
           }}
         >
           Home
+        </button>
+        <button
+          role="tab"
+          aria-selected={location.pathname === '/offers'}
+          className={location.pathname === '/offers' ? 'on' : ''}
+          onClick={() => {
+            trackEvent('nav_click', { section_name: 'seg_tab', nav_label: 'Offers', destination: '/offers' });
+            navigate('/offers');
+          }}
+        >
+          Offers
         </button>
         <button
           role="tab"

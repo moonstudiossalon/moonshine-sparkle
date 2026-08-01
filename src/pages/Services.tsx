@@ -11,6 +11,7 @@ import { Icon } from '@/components/Icon';
 import { cn } from '@/lib/utils';
 
 import { getServiceImage } from '@/utils/serviceImages';
+import OfferStrip from '@/components/offers/OfferStrip';
 
 
 type Service = {
@@ -384,6 +385,8 @@ const Services = () => {
             </p>
           </div>
         </section>
+
+        <OfferStrip label="Pair two of these Mon–Thu, 12–5 PM, and the second one is free." />
 
         {/* Category nav */}
         <CatNav categories={categories} active={activeCategory} onSelect={scrollToCategory} />

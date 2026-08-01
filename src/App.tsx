@@ -9,6 +9,7 @@ import AnalyticsTracker from "./components/AnalyticsTracker";
 // Route-based code splitting — each page is loaded on demand
 const Index = lazy(() => import("./pages/Index"));
 const Services = lazy(() => import("./pages/Services"));
+const Offers = lazy(() => import("./pages/Offers"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const NanoplastiaAndheriEast = lazy(() => import("./pages/NanoplastiaAndheriEast"));
 const BalayageSalonAndheri = lazy(() => import("./pages/BalayageSalonAndheri"));
@@ -53,6 +54,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/offers" element={<Offers />} />
             <Route path="/nanoplastia-andheri-east" element={<NanoplastiaAndheriEast />} />
             <Route path="/balayage-salon-andheri" element={<BalayageSalonAndheri />} />
             <Route path="/family-salon-marol-mumbai" element={<FamilySalonMarolMumbai />} />

@@ -1,5 +1,9 @@
 import { createRoot, hydrateRoot } from "react-dom/client";
 import App from "./App.tsx";
+// offers.css comes first on purpose: Tailwind's utilities layer is emitted at
+// the top of index.css, so importing it later lets md: utilities override the
+// offer base classes without !important. See docs/superpowers/specs.
+import "./offers.css";
 import "./index.css";
 import "./moon-prototype.css";
 
