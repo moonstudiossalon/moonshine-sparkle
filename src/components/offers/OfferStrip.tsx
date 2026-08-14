@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
 import { cn } from '@/lib/utils';
 import { useOfferStatus } from '@/hooks/useOfferStatus';
+import { useFestiveOffer } from '@/hooks/useFestiveOffer';
+import { festiveSummary } from '@/lib/festive';
 import { OFFERS, OFFER_TEL, fmtH } from '@/lib/offers';
 import { trackOfferCall, trackOfferNav } from './offerTracking';
 
@@ -18,35 +20,40 @@ const OfferStrip = ({ label }: OfferStripProps) => {
   const navigate = useNavigate();
   const offer = OFFERS[0];
   const status = useOfferStatus(offer);
+  const festive = useFestiveOffer();
 
   return (
     <div
       className={cn(
         'ostrip',
+        festive && 'ostrip-fest',
         'md:max-w-[1200px] md:my-[22px] md:mx-auto md:rounded-2xl',
         'md:bg-none md:bg-card md:shadow-soft md:[border-color:hsl(var(--offer-gold)/0.45)]',
+        festive && 'md:[border-color:hsl(var(--fest-saffron)/0.5)]',
       )}
     >
       <button
         type="button"
         className="ostrip-body md:flex-row md:items-center md:gap-3.5 md:py-4 md:px-5 md:text-foreground"
         onClick={() => {
-          trackOfferNav('offer_strip');
+          trackOfferNav(festive ? 'festive_strip' : 'offer_strip');
           navigate('/offers');
         }}
       >
         <span
           className={cn(
             'ostrip-tag',
-            status.live && 'ostrip-tag-live',
-            status.live && 'md:[background:#16a34a] md:text-white',
+            !festive && status.live && 'ostrip-tag-live',
+            !festive && status.live && 'md:[background:#16a34a] md:text-white',
           )}
         >
-          {status.live ? 'Live now' : offer.name}
+          {festive ? festive.countdown : status.live ? 'Live now' : offer.name}
         </span>
         <span className="ostrip-txt md:flex-1 md:text-sm md:text-muted-foreground">
-          {label ??
-            `Pay for one service, get the second free — ${offer.dayLabel}, ${fmtH(offer.startHour)}–${fmtH(offer.endHour)}.`}
+          {festive
+            ? `${festive.offer.name} — ${festiveSummary(festive.offer)}. ${festive.offer.condition}.`
+            : (label ??
+              `Pay for one service, get the second free — ${offer.dayLabel}, ${fmtH(offer.startHour)}–${fmtH(offer.endHour)}.`)}
         </span>
         <span className="ostrip-go md:text-primary">
           See offer
@@ -62,8 +69,8 @@ const OfferStrip = ({ label }: OfferStripProps) => {
           'md:[background:hsl(var(--offer-bg))] md:[color:hsl(var(--offer-gold))]',
         )}
         href={`tel:${OFFER_TEL}`}
-        aria-label="Call Moon Studios about the Happy Hour offer"
-        onClick={() => trackOfferCall('offer_strip')}
+        aria-label={`Call Moon Studios about the ${festive ? festive.offer.name : offer.name} offer`}
+        onClick={() => trackOfferCall(festive ? 'festive_strip' : 'offer_strip')}
       >
         <span className="ostrip-call-ic">
           <Icon name="phone" />

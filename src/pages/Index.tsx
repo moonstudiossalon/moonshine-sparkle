@@ -16,6 +16,7 @@ import Footer from '@/components/Footer';
 import StructuredData from '@/components/StructuredData';
 import OfferBanner from '@/components/offers/OfferBanner';
 import OfferStrip from '@/components/offers/OfferStrip';
+import FestiveBanner from '@/components/offers/FestiveBanner';
 
 const Index = () => {
   useSEO({
@@ -29,6 +30,9 @@ const Index = () => {
       <StructuredData />
       <Header />
       <Hero />
+      {/* Expiring offer leads; it self-removes when the window closes, leaving
+          OfferBanner in its usual spot. */}
+      <FestiveBanner />
       <OfferBanner />
       <PreferredBy />
       <TopServices />

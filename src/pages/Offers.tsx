@@ -4,9 +4,16 @@ import Footer from '@/components/Footer';
 import FloatingCTA from '@/components/FloatingCTA';
 import StructuredData from '@/components/StructuredData';
 import OfferFull from '@/components/offers/OfferFull';
+import FestiveFull from '@/components/offers/FestiveFull';
+import { useFestiveOffer } from '@/hooks/useFestiveOffer';
 import { OFFERS } from '@/lib/offers';
 
 const Offers = () => {
+  const festive = useFestiveOffer();
+
+  /* The page title stays on Happy Hour deliberately: it is the evergreen offer
+     this URL ranks for, and swapping it for a few days would cost more than the
+     festive offer gains. */
   useSEO({
     title: 'Happy Hour Offer — Free Second Service | Moon Studios Andheri East',
     description:
@@ -29,19 +36,33 @@ const Offers = () => {
               className="font-playfair font-semibold leading-[1.08] mb-3"
               style={{ fontSize: 'clamp(28px,8vw,56px)' }}
             >
-              Come in quiet hours,
-              <br />
-              leave with <em className="text-primary italic">two</em> services.
+              {festive ? (
+                <>
+                  Two ways to pay
+                  <br />
+                  <em className="text-primary italic">less</em> this week.
+                </>
+              ) : (
+                <>
+                  Come in quiet hours,
+                  <br />
+                  leave with <em className="text-primary italic">two</em> services.
+                </>
+              )}
             </h1>
             <p
               className="text-muted-foreground leading-relaxed"
               style={{ fontSize: 'clamp(14px,3.5vw,17px)', maxWidth: '48ch', margin: '0 auto' }}
             >
-              Our weekday slots are calmer — so we give the second service free. Fewer people, more
-              attention, same team.
+              {festive
+                ? 'A flat Independence Day discount running till 15 August, and our weekday Happy Hour that never stops. Take whichever suits your slot.'
+                : 'Our weekday slots are calmer — so we give the second service free. Fewer people, more attention, same team.'}
             </p>
           </div>
         </section>
+
+        {/* Expiring offer first — it removes itself once the window closes. */}
+        <FestiveFull />
 
         {OFFERS.map((offer) => (
           <OfferFull key={offer.id} offer={offer} />

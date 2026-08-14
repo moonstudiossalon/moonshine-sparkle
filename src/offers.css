@@ -169,3 +169,105 @@
   .oposter{padding:0 36px 34px;display:flex;justify-content:center}
   .oposter img{max-width:500px}
 }
+
+/* ══════════════ Limited-time festive offer surfaces ══════════════
+   Same deep-green offer family as above — the site's --offer-bg already reads
+   as the green of the tricolour — with saffron as the accent in place of gold,
+   plus a hairline tricolour rule along the top edge. Enough to say Independence
+   Day; not so much that the card becomes a flag.
+   Everything below is scoped to .fest* so it lapses out of use with the offer. */
+
+:root{
+  --fest-saffron:28 92% 58%;
+  --fest-saffron-soft:32 88% 72%;
+}
+
+/* hairline tricolour rule — saffron / white / green */
+.fest-flag{position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,hsl(var(--fest-saffron)) 0 33.33%,hsl(var(--offer-cream)) 33.33% 66.66%,#1f8a52 66.66% 100%);z-index:2}
+
+/* —— home banner —— */
+.fest{padding:14px 16px 0}
+.fest-in{position:relative;overflow:hidden;border-radius:18px;padding:18px 14px 13px;background:linear-gradient(155deg,hsl(var(--offer-bg)),hsl(var(--offer-bg2)));color:hsl(var(--offer-cream));box-shadow:0 14px 34px -16px hsl(160 45% 8%/.85);border:1px solid hsl(var(--fest-saffron)/.34)}
+.fest-glow{position:absolute;right:-70px;top:-80px;width:210px;height:210px;border-radius:999px;background:radial-gradient(circle,hsl(var(--fest-saffron)/.24),transparent 70%);pointer-events:none}
+.fest-head{position:relative}
+.fest-title{font-family:'Playfair Display',serif;font-size:25px;line-height:1.05;margin:9px 0 2px;color:#fff}
+.fest-tag{font-size:12.5px;color:hsl(var(--offer-cream)/.8);margin:0}
+
+/* countdown pill — tabular figures so a ticking timer never reflows its row */
+.fest-stat{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:hsl(var(--fest-saffron-soft));background:hsl(var(--fest-saffron)/.15);border:1px solid hsl(var(--fest-saffron)/.45);padding:5px 10px;border-radius:999px}
+.fest-count{font-variant-numeric:tabular-nums}
+.fest-dot{width:6px;height:6px;border-radius:999px;background:hsl(var(--fest-saffron))}
+.fest-stat-final{color:#ffd0b0;background:hsl(var(--fest-saffron)/.24);border-color:hsl(var(--fest-saffron)/.7)}
+.fest-stat-final .fest-dot{animation:offer-pulse 1.9s infinite}
+
+/* deal tiles */
+.fest-deals{position:relative;display:grid;gap:8px;margin:13px 0 10px;padding:0;list-style:none}
+.fest-deal{display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid hsl(var(--fest-saffron)/.22)}
+.fest-val{flex:0 0 auto;display:inline-flex;align-items:baseline;gap:4px;font-family:'Playfair Display',serif;font-size:29px;font-weight:700;line-height:1;color:hsl(var(--fest-saffron-soft));font-variant-numeric:tabular-nums}
+.fest-off{font-family:inherit;font-size:9.5px;font-weight:800;letter-spacing:.1em;color:hsl(var(--offer-cream)/.72)}
+.fest-scope{font-size:12.5px;font-weight:600;line-height:1.25;color:#fff;text-wrap:pretty}
+
+.fest-cond{position:relative;display:flex;align-items:flex-start;gap:7px;margin:0;font-size:11.5px;font-weight:600;color:hsl(var(--offer-cream)/.82);text-wrap:pretty}
+.fest-cond-ic{flex:0 0 auto;width:13px;height:13px;margin-top:1px;display:inline-flex;color:hsl(var(--fest-saffron-soft))}
+
+.fest-cta{position:relative;display:flex;flex-direction:column;gap:6px;margin-top:13px}
+.fest-call{min-height:48px;font-size:14px;background:hsl(var(--fest-saffron));color:#3a1d02;box-shadow:0 10px 24px -10px hsl(var(--fest-saffron)/.85)}
+.fest-call-sub{font-size:10px}
+.fest-see{min-height:44px;font-size:12.5px;color:hsl(var(--offer-cream)/.85)}
+
+@media (min-width:768px){
+  .fest{padding:26px 0 0}
+  /* wrap is load-bearing: .fest-cond takes a full-width basis and drops to its
+     own row below the three columns. */
+  .fest-in{display:flex;flex-wrap:wrap;align-items:center;gap:30px;max-width:1200px;margin:0 auto;padding:24px 26px 22px;border-radius:20px}
+  .fest-head{flex:0 1 340px;min-width:250px}
+  .fest-title{font-size:31px}
+  .fest-tag{font-size:13.5px}
+  .fest-deals{flex:1;margin:0;gap:9px}
+  .fest-deal{padding:13px 15px}
+  .fest-val{font-size:34px}
+  .fest-scope{font-size:13.5px}
+  /* min-width:100% rather than flex-basis so the 30px column gap does not push
+     the row past the container. */
+  .fest-cond{flex:0 0 auto;min-width:100%;order:9;margin-top:-8px;justify-content:center;font-size:12.5px}
+  .fest-cta{flex:none;margin-top:0;align-items:stretch;gap:4px}
+  .fest-call{padding:0 24px}
+}
+
+/* —— offer page card —— */
+.fest-full{position:relative;border-color:hsl(var(--fest-saffron)/.34)}
+.fest-full .ofull-top{padding-top:24px}
+.fest-full .ochip-hi{color:hsl(var(--fest-saffron-soft));border-color:hsl(var(--fest-saffron)/.4);background:hsl(var(--fest-saffron)/.12)}
+.fest-full .ochip-ic{color:hsl(var(--fest-saffron-soft))}
+.fest-full .ostep-n{background:hsl(var(--fest-saffron));color:#3a1d02}
+.fest-deals-lg{padding:0 16px;margin:16px 0 12px}
+.fest-deals-lg .fest-deal{padding:16px 16px;border-radius:16px}
+.fest-deals-lg .fest-val{font-size:38px}
+.fest-deals-lg .fest-scope{font-size:14px}
+.fest-cond-lg{padding:0 18px;justify-content:center;font-size:12.5px}
+
+@media (min-width:768px){
+  .fest-full .ofull-top{padding-top:42px}
+  .fest-deals-lg{grid-template-columns:repeat(2,1fr);gap:16px;padding:0 36px;margin:22px 0 14px}
+  .fest-deals-lg .fest-deal{padding:22px 20px;border-radius:20px}
+  .fest-deals-lg .fest-val{font-size:46px}
+  .fest-deals-lg .fest-scope{font-size:15px}
+  .fest-cond-lg{font-size:14px}
+}
+
+/* —— bar + strip accents when the festive offer is the one being shown —— */
+.obar-fest{background:linear-gradient(100deg,hsl(var(--offer-bg)),hsl(var(--offer-bg2)));border-bottom-color:hsl(var(--fest-saffron)/.5)}
+.obar-fest .obar-name{color:hsl(var(--fest-saffron-soft))}
+.obar-fest .obar-dot{background:hsl(var(--fest-saffron));animation:offer-pulse 1.9s infinite}
+.obar-fest .obar-call{background:hsl(var(--fest-saffron));color:#3a1d02}
+/* The festive sub-line carries two discounts plus a countdown — a shade smaller
+   than the Happy Hour line so the countdown survives on a 360px phone. */
+.obar-fest .obar-sub{font-size:11px;letter-spacing:-.005em;font-variant-numeric:tabular-nums}
+.ostrip-fest{border-color:hsl(var(--fest-saffron)/.45)}
+.ostrip-fest .ostrip-tag{background:hsl(var(--fest-saffron));color:#3a1d02}
+.ostrip-fest .ostrip-go{color:hsl(var(--fest-saffron-soft))}
+.ostrip-fest .ostrip-call{background:hsl(var(--fest-saffron));color:#3a1d02}
+
+@media (prefers-reduced-motion:reduce){
+  .fest-stat-final .fest-dot,.obar-fest .obar-dot{animation:none}
+}
